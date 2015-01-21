@@ -6,14 +6,14 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using System.Web.Security;
-using Education.Library;
-using Education.Models;
+using EducationTrainSystem.Library;
+using EducationTrainSystem.Models;
 
 namespace Education.APIv1
 {
     public class UserController : ApiController
     {
-        private EducationModel model = new EducationModel();
+        private EducationTrain model = new EducationTrain();
         public Utils.RichMessage GetLogIn(string code, string password)
         {
             var queryUser = model.Users.FirstOrDefault(u => u.Code == code && u.Password == password);

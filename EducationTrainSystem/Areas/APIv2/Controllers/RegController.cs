@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Education.Models;
+using EducationTrainSystem.Models;
 
 namespace Education.Areas.APIv2.Controllers
 {
     public class RegController : Controller
     {
-        private EducationModel model = new EducationModel();
+        private EducationTrain model = new EducationTrain();
         public JsonResult Apply(Registration reg)
         {
-            reg.KeyId = Guid.NewGuid();
+            reg.GId = Guid.NewGuid();
             reg.GenerateDate = DateTime.Now;
             reg.Agent = " ";
             reg.Payee = " ";
             reg.Price = 0;
             reg.ReceiptNumber = "";
-            reg.Confirm = false;
+            reg.Confirmed = false;
             model.Registrations.InsertOnSubmit(reg);
             model.SubmitChanges();
             return Json(reg);

@@ -12,9 +12,9 @@ namespace EducationTrainSystem.APIv1
     public class CourseController : ApiController
     {
         private EducationTrain model = new EducationTrain();
-        public IEnumerable<Course> GetCourses(string category)
+        public IEnumerable<Course> GetCourses(int train)
         {
-            return model.Courses.Where(c => c.TrainId == category);
+            return model.Courses.Where(c => c.TrainId == train);
         }
         public Course GetCourse(string name)
         {

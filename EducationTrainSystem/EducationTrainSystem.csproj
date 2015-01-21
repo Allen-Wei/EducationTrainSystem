@@ -109,6 +109,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIv1\CourseCategoryController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="APIv1\CourseController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="APIv1\RegistrationController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="APIv1\UserController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Areas\APIv2\APIv2AreaRegistration.cs" />
+    <Compile Include="Areas\APIv2\Controllers\RegController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -123,7 +137,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Areas\APIv2\Views\Web.config" />
     <Content Include="Content\create.sql" />
+    <Content Include="Content\data.sql" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -181,9 +197,9 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="APIv1\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\" />
+    <Folder Include="Areas\APIv2\Models\" />
+    <Folder Include="Areas\APIv2\Views\Shared\" />
     <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
