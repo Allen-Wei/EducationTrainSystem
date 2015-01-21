@@ -11,7 +11,7 @@ sqlmetal /code:E:\LINQ2SQL\EducationTrainSystem.cs /server:ozosserver\ozos /user
 drop table KeyValueMatches
 drop table KeyValueGroups
 drop table KeyValues
-drop table Trains
+drop table EducationTrains
 select * from sys.tables 
 
 /*
@@ -19,7 +19,6 @@ Colleges => Professional
 */
 
 --RegistrationAddress, Colleges(成考, 自考), Subjects
-
 create table KeyValueGroups(
 	Id int identity(1,1) primary key,
 	Name varchar(500) not null,
@@ -31,16 +30,19 @@ create table KeyValues(
 	Id int identity(1,1) primary key,
 	Name varchar(500) not null,
 	Value varchar(max),
-	Description varchar(500)
+	Description varchar(500),
+	Mark varchar(500)
 )
 go
 create table KeyValueMatches(
-	Id int identity(1,1) primary key,
+	Id int identity(1,1),
 	GroupId int not null,
 	ValueId int not null,
 	constraint FK_KVM_KVG_GroupId foreign key (GroupId) references KeyValueGroups(Id) on delete cascade on update cascade,
-	constraint FK_KVM_KV_ValueId foreign key (ValueId) references KeyValues(Id) on delete cascade on update cascade
+	constraint FK_KVM_KV_ValueId foreign key (ValueId) references KeyValues(Id) on delete cascade on update cascade,
+	Constraint PK_KVM_GroupId_ValueId primary key (GroupId, ValueId)
 )
+
 go
 create table Trains(
 	Id int identity(1,1) primary key, 
@@ -90,7 +92,7 @@ create table Registrations
 	constraint FK_Reg_RU_RegUserId foreign key (RegUserId) references RegUsers(Gid) on delete set null on update cascade
 )
 go
-create table EducationTrains(
+create table EduTrains(
 	Gid uniqueidentifier primary key default newid(),
 	Course varchar(500) not null,
 	RegCollege varchar(500) null,

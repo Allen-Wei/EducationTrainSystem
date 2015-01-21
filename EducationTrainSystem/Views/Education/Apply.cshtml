@@ -1,0 +1,311 @@
+﻿@{
+    ViewBag.Title = "申请";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    @Html.Partial("~/Views/Partials/jqueryui.cshtml")
+    @Html.Partial("~/Views/Partials/angular.cshtml")
+    <style type="text/css">
+        input[type=radio] { -webkit-appearance: radio; }
+        input[type=checkbox] { -webkit-appearance: checkbox; }
+        .form-control[readonly] { background-color: white; }
+        .tip { margin-left: -30px; position: fixed; z-index: 100; background-color: rgba(30, 30, 30, 0.3); width: 100%; padding: 0 8px; top: 50px; min-height: 30px; line-height: 30px; }
+        .ellipsis { display: inline-block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+        .ellipsis-base { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
+        .ng-hide, .hide { display: none; }
+        .hey-inline { display: inline-block; width: auto; }
+        .input-group .form-control { z-index: 1; }
+
+        .top10 { margin-top: 10px; }
+        .bottom10 { margin-bottom: 10px; }
+
+        .new-form .col-xs-12 { margin-top: 10px; vertical-align: middle; }
+        /*for form.html, detai.html*/
+        .header-sub { color: #aaa; }
+
+        input.ng-dirty.ng-invalid { border: 1px solid red; }
+    </style>
+}
+
+@Html.Partial("~/Views/Partials/breadcrumb.cshtml")
+
+<div class="container-fluid" ng-app="Registration">
+    <div ng-controller="BodyCtrl">
+        <div class="row" ng-controller="FormCtrl">
+            <form class="new-form" role="form" name="NewForm">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                基本信息
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <!-- Registrater Information -->
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        报名日期
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <input type="text"
+                                               class="form-control"
+                                               select-date
+                                               date-format="{{constant.uiDateFormat}}"
+                                               ng-model="main.reg.RegistrateDate"
+                                               required />
+                                    </div>
+
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        姓名
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <input type="text" value="" class="form-control" ng-model="main.reg.StudentName" required />
+                                    </div>
+
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        性别
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <select class="form-control" ng-model="main.reg.Gender">
+                                            <option value="true">男</option>
+                                            <option value="false">女</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        电话
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <input type="text" value="" class="form-control" ng-model="main.reg.Phone" required />
+                                    </div>
+
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        备用电话
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <input type="text" value="" class="form-control" ng-model="main.reg.Phone2" />
+                                    </div>
+
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        户籍
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <input type="text" value="" class="form-control" ng-model="main.reg.HomeAddress" required />
+                                    </div>
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        住址
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <input type="text" value="" class="form-control" ng-model="main.reg.LiveAddress" required />
+                                    </div>
+
+
+
+                                    <!-- Registration Information-->
+
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        地址
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <select class="form-control" ng-model="main.reg.RegistrationAddress">
+                                            <option value="zongbu">总部</option>
+                                            <option value="jinnan">津南</option>
+                                            <option value="hexi">河西</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        备注
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <input type="text" value="" class="form-control" ng-model="main.reg.Note" />
+                                    </div>
+
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        课程类别
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <select class="form-control"
+                                                ng-model="main.courseAssist.category"
+                                                ng-options="cc.Description for cc in main.courseAssist.categories"></select>
+                                    </div>
+
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        所报课程
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <select class="form-control"
+                                                ng-options="c.Description for c in main.courseAssist.courses"
+                                                ng-model="main.courseAssist.course"></select>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+
+                        <div class="panel panel-info" ng-hide="main.courseAssist.category.Category != 'c1'">
+                            <div class="panel-heading">所报院校</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        所报院校
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <select class="form-control" ng-model="main.reg.RegistrateCollege">
+                                            <option ng-repeat="college in main.colleges.choices">{{college}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        学历类别
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <select class="form-control" ng-model="main.reg.EducationDegree">
+                                            <option value="zhuanke">专科</option>
+                                            <option value="benke">本科</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-info" ng-hide="main.courseAssist.category.Category != 'c2'">
+                            <div class="panel-heading">所在院校</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        所在院校
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <select class="form-control" ng-model="main.reg.CurrentCollege">
+                                            <option ng-repeat="college in main.colleges.all">{{college}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3 col-xs-12 header-sub">
+                                        所在年级
+                                    </div>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <select class="form-control" ng-model="main.reg.CurrentGrade">
+                                            <option value="dayi">大一</option>
+                                            <option value="daer">大二</option>
+                                            <option value="dasan">大三</option>
+                                            <option value="dasi">大四</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button ng-click="main.submit()" class="btn btn-default" ng-disabled="NewForm.$invalid">提交</button>
+                        <a href="/" class="btn btn-danger">取消</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+<script>
+    var app = angular.module('Registration', ['ngRoute', 'registration.services', 'registration.directives', 'registration.filters']);
+
+    app.controller('BodyCtrl', function ($scope, AppConstant) {
+        $scope.constant = AppConstant;
+    });
+
+    app.controller('FormCtrl', function ($scope, $http, $filter, AppConstant, RegSvc) {
+        $scope.main = {
+            reg: {
+                StudentName: '',
+                Gender: 'true',
+                Phone: '',
+                Phone2: '',
+                LiveAddress: '',
+                HomeAddress: '',
+
+                ReceiptNumber: '',
+                RegistrateDate: $filter('date')(new Date(), AppConstant.ngDateFormat),
+                Price: 0,
+                Payee: '',
+
+                RegistrationAddress: 'zongbu',
+                CourseCategoryName: '',
+                CourseName: '',
+                CurrentCollege: '',
+                RegistrateCollege: '',
+                CurrentGrade: 'dayi',
+                EducationDegree: 'zhuanke',
+                Note: ''
+            }
+            , colleges: {
+                choices: [],
+                all: []
+            }
+            , courseAssist: {
+                categories: [],
+                category: {},
+                courses: [],
+                course: {}
+            }
+            , submit: function () {
+
+                this.reg.CourseCategoryName = this.courseAssist.category.Name;
+                this.reg.CourseName = this.courseAssist.course.Name;
+                $http({
+                    method: 'post',
+                    url: '/APIv2/Reg/Apply',
+                    data: this.reg
+                }).then(function(rep) {
+                    console.log(rep);
+                    location.href = '/Education/ApplySuccess?key=' + rep.data.KeyId;
+                });
+            }
+        };
+
+        //Course category change, load Course
+        $scope.$watch('main.courseAssist.category.Name', function (newVal, oldVal) {
+            if (newVal === undefined) { return; }
+            RegSvc.loadCourses(newVal).then(function (rep) {
+                $scope.main.courseAssist.courses = rep.data;
+                $scope.main.courseAssist.course = $scope.main.courseAssist.courses[0];
+            });
+        });
+
+        //load course category
+        RegSvc.loadCourseCategories().then(function (rep) {
+            $scope.main.courseAssist.categories = rep.data;
+            $scope.main.courseAssist.category = $scope.main.courseAssist.categories[0];
+        });
+
+        //load all colleges
+        RegSvc.loadColleges().then(function (rep) {
+            angular.forEach(rep.data, function (college) {
+                $scope.main.colleges.all.push(college.Name);
+                if (college.CanRegistrate) {
+                    $scope.main.colleges.choices.push(college.Name);
+                }
+            });
+            $scope.main.reg.CurrentCollege = $scope.main.colleges.all[0];
+            $scope.main.reg.RegistrateCollege = $scope.main.colleges.choices[0];
+        });
+    });
+</script>
+
+<script>
+    amplify.publish('path.refresh', [{
+        href: '/', text: '首页'
+    }, {
+        text: '报名申请'
+    }]);
+</script>

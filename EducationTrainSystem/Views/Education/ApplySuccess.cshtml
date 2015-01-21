@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "ApplySuccess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/Partials/breadcrumb.cshtml")
+    <div class="container-fluid">
+        <div class="row">
+            <h4>你的报名申请已成功提交。你的查询编号是: <i> @Request.QueryString["key"]</i></h4>
+        </div>
+    </div>
+    <script>
+        amplify.publish('path.refresh', [{ href: '/', text: '首页' }, { text: '报名申请成功' }]);
+    </script>

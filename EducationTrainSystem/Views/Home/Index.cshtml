@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section header
+{
+    <style type="text/css">
+        .main { margin-top: 10%; }
+        #main-show .btn {margin: 30px auto 30px auto;
+            font-size: 20px;
+            display: block;
+            width: 120px; }
+        #main-login { display: none; }
+    </style>
+}
+
+@Html.Partial("~/Views/Partials/breadcrumb.cshtml")
+
+<div class="row main">
+    <div id="main-show" class="col-sm-12">
+        <a href="/Education/Apply" class="btn btn-default">报名申请</a>
+        <button class="btn btn-default">管理人员</button>
+    </div>
+    <div id="main-login" class="col-md-offset-5 col-md-2 col-sm-offset-4 col-sm-4 col-xs-offset-1 col-xs-10">
+        <form role="form" class="form-horizontal">
+            <div class="form-group">
+                <label>用户编号</label>
+                <input id="main-login-code" type="text" value="" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>密码</label>
+                <input id="main-login-pass" type="password" value="" class="form-control" />
+            </div>
+            <div class="form-group">
+                <span id="main-login-cancel" class="btn btn-default">返回</span>
+                <span id="main-login-submit" class="btn btn-info">登录</span>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        var navData = [{ href: '/', text: '首页' }, { text: '欢迎' }];
+        amplify.publish('path.refresh', navData);
+
+        $('#main-show .btn:eq(1)').on('click', function () {
+            $(this).closest('div').slideUp();
+            $('#main-login').slideDown();
+            navData[1].text = '登录';
+            amplify.publish('path.refresh', navData);
+        });
+        $('#main-login-cancel').on('click', function () {
+            $('#main-login').slideUp();
+            $('#main-show').slideDown();
+            navData[1].text = '欢迎';
+            amplify.publish('path.refresh', navData);
+        });
+        $('#main-login-submit').on('click', function () {
+            var name = $('#main-login-code').val();
+            var pass = $('#main-login-pass').val();
+            var data = { code: name, password: pass };
+            $.ajax({
+                type: 'get',
+                contentType: 'application/json',
+                url: '/APIv1/User',
+                data: data
+            }).success(function (rep) {
+                if (rep.success) {
+                    location.href = '/Education';
+                } else {
+                    alert(rep.message);
+                }
+            });
+        });
+    });
+
+</script>

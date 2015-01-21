@@ -1,0 +1,49 @@
+﻿
+<div class="row">
+    <div class="col-sm-12 top10 bottom10">
+        <a href="#/new" class="btn btn-default glyphicon glyphicon-plus" title="新建报名记录"></a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">报名记录列表</div>
+            <table class="table table-responsive table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>报考日期</th>
+                        <th>姓名</th>
+                        <th class="hidden-xs hidden-sm">性别</th>
+                        <th>费用</th>
+                        <th class="hidden-xs hidden-sm">收款人</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="reg in main.regs">
+                        <td>
+                            <a href="#/detail/{{reg.Id}}">{{reg.Id}}</a>
+                        </td>
+                        <td>{{reg.RegistrateDate | date:constant.ngDateFormat}}</td>
+                        <td>{{reg.StudentName}}</td>
+                        <td class="hidden-xs hidden-sm">{{reg.Gender ? '男' : '女'}}</td>
+                        <td>{{reg.Price | currency:'￥'}}</td>
+                        <td class="hidden-xs hidden-sm">{{reg.Payee}}</td>
+                        <td>
+                            <a href="#/edit/{{reg.Id}}" class="btn btn-xs btn-default glyphicon glyphicon-pencil"></a>
+                            <a href="/Education/Receipt/{{reg.Id}}" target="_blank" class="btn btn-xs btn-default glyphicon glyphicon-print hidden-sm hidden-xs"></a>
+                            <button class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="main.remove($index)"></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="panel-footer">
+                <button class="btn btn-default btn-sm glyphicon glyphicon-arrow-left" title="上一页" ng-disabled="main.page == 1" ng-click="main.page = main.page - 1"></button>
+                <button class="btn btn-default btn-sm glyphicon glyphicon-arrow-right" title="下一页" ng-disabled="main.page >= main.pages" ng-click="main.page = main.page + 1"></button>
+                &nbsp; &nbsp;
+                Page: {{main.page}} &nbsp; Pages: {{main.pages}} &nbsp; Total: {{main.total}}
+            </div>
+        </div>
+    </div>
+</div>
