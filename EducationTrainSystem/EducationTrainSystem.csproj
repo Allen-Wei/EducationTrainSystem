@@ -109,7 +109,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="APIv1\CourseCategoryController.cs">
+    <Compile Include="APIv1\CollegeController.cs" />
+    <Compile Include="APIv1\EduTrainController.cs" />
+    <Compile Include="APIv1\KeyValueController.cs" />
+    <Compile Include="APIv1\KeyValueGroupController.cs" />
+    <Compile Include="APIv1\KeyValueMatchController.cs" />
+    <Compile Include="APIv1\TrainController.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="APIv1\CourseController.cs">
@@ -131,6 +136,7 @@
     <Compile Include="Library\RolesProvider.cs" />
     <Compile Include="Library\Utils.cs" />
     <Compile Include="Models\EducationTrainSystem.cs" />
+    <Compile Include="Models\Registration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -139,17 +145,27 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Areas\APIv2\Views\Web.config" />
     <Content Include="Content\create.sql" />
+    <Content Include="Content\CRUD-example.html" />
     <Content Include="Content\data.sql" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Partials\Education\detail.html" />
-    <Content Include="Partials\Education\form.html" />
-    <Content Include="Partials\Education\list.html" />
-    <Content Include="Partials\Education\print.html" />
+    <Content Include="Partials\Education\Manage\keyvaluematch.html" />
+    <Content Include="Partials\Education\Manage\keyvaluegroup.html" />
+    <Content Include="Partials\Education\Manage\keyvalue.html" />
+    <Content Include="Partials\Education\Manage\summary.html" />
+    <Content Include="Partials\Education\Registration\detail.html" />
+    <Content Include="Partials\Education\Registration\add.html" />
+    <Content Include="Partials\Education\Registration\list.html" />
     <Content Include="Scripts\angular\directives.js" />
     <Content Include="Scripts\angular\filters.js" />
     <Content Include="Scripts\angular\services.js" />
+    <Content Include="Scripts\angular\services.course.js" />
+    <Content Include="Scripts\angular\services.edutrain.js" />
+    <Content Include="Scripts\angular\services.train.js" />
+    <Content Include="Scripts\angular\services.keyvaluematch.js" />
+    <Content Include="Scripts\angular\services.keyvaluegroup.js" />
+    <Content Include="Scripts\angular\services.registration.js" />
     <Content Include="Styles\animate.css" />
     <Content Include="Styles\bootstrap-theme.min.css" />
     <Content Include="Styles\bootstrap.min.css" />
@@ -170,6 +186,7 @@
     <Content Include="Styles\images\ui-icons_ffd27a_256x240.png" />
     <Content Include="Styles\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Styles\jquery-ui-1.10.4.min.css" />
+    <Content Include="Scripts\angular\services.keyvalue.js" />
     <None Include="Vendors\amplify-vsdoc.js" />
     <Content Include="Vendors\amplify.min.js" />
     <Content Include="Vendors\angular-animate.min.js" />
@@ -195,6 +212,8 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Education\Manage.cshtml" />
+    <Content Include="Views\Partials\angular.service.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

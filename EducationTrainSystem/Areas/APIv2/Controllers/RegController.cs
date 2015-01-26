@@ -5,14 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using EducationTrainSystem.Models;
 
-namespace Education.Areas.APIv2.Controllers
+namespace EducationTrainSystem.Areas.APIv2.Controllers
 {
     public class RegController : Controller
     {
         private EducationTrain model = new EducationTrain();
         public JsonResult Apply(Registration reg)
         {
-            reg.GId = Guid.NewGuid();
+            reg.Gid = Guid.NewGuid();
             reg.GenerateDate = DateTime.Now;
             reg.Agent = " ";
             reg.Payee = " ";

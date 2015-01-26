@@ -1,0 +1,222 @@
+﻿<style type="text/css">
+    .col-xs-12{margin-top: 10px;}
+</style>
+
+<div class="row top10 bottom10">
+    <div class="col-sm-12">
+        <a href="#/" class="btn btn-default glyphicon glyphicon-home"></a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                基本信息
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <!-- Registrater Information -->
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        报名日期
+                    </div>
+                    <div class="col-sm-9 col-xs-12">{{main.reg.RegUser.RegDate | date: constant.ngDateFormat}}</div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        姓名
+                    </div>
+                    <div class="col-sm-9 col-xs-12">{{main.reg.RegUser.Name}}</div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        性别
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.RegUser.Gender ? '男' : '女'}}
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        身份证号
+                    </div>
+                    <div class="col-sm-9 col-xs-12">{{main.reg.RegUser.CardId}}</div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        民族
+                    </div>
+                    <div class="col-sm-9 col-xs-12">{{main.reg.RegUser.Nation}}</div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        电话
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.RegUser.Phone}}
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        备用电话
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.RegUser.Phone2}}
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        户籍
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.RegUser.HomeAddress}}
+                    </div>
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        住址
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.RegUser.LiveAddress}}
+                    </div>
+
+                    <!-- Registration Information-->
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        生效
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.Registration.Confirmed ? '是' : '否'}}
+                    </div>
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        票据编号
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.Registration.ReceiptNumber}}
+                    </div>
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        费用
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.Registration.Price}}
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        代理人
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.Registration.Agent}}
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        收款人
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.Registration.Payee}}
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        地址
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.Registration.Address}}
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        备注
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        课程类别
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        所报课程
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-sm-6 col-xs-12">
+
+        <div class="panel panel-info" ng-show="main.assist.train.Category == 'EduTrain'">
+            <div class="panel-heading">学历教育培训</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        所报院校
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        <select class="form-control" ng-model="main.assist.regCollege" ng-options="college.Name for college in main.assist.regColleges"></select>
+                    </div>
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        所报专业
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" value="" class="form-control" placeholder="学员所报专业" ng-model="main.eduTrain.RegMajor" />
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        学历类别
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        <select class="form-control" ng-model="main.eduTrain.EduType">
+                            <option value="专科">专科</option>
+                            <option value="本科">本科</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        所在学校
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        <select class="form-control" ng-options="college.Name for college in main.assist.currentColleges" ng-model="main.assist.currentCollege"></select>
+                    </div>
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        所在年级
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" ng-model="main.eduTrain.CurrentGrade" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-info" ng-show="main.assist.train.Category == 'CertificationTrain'">
+            <div class="panel-heading">资格证培训</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        所在院校
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        <select class="form-control" ng-options="college.Name for college in main.assist.currentColleges" ng-model="main.assist.currentCollege"></select>
+                    </div>
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        所在年级
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        <select class="form-control" ng-model="main.certTrain.CurrentGrade">
+                            <option value="大一">大一</option>
+                            <option value="大二">大二</option>
+                            <option value="大三">大三</option>
+                            <option value="大四">大四</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        学历类别
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        <select class="form-control" ng-model="main.certTrain.EduType">
+                            <option value="专科">专科</option>
+                            <option value="本科">本科</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+

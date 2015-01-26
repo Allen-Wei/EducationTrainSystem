@@ -13,13 +13,17 @@ namespace EducationTrainSystem.Controllers
     {
         private EducationTrain model = new EducationTrain();
 
-        [Authorize(Roles = "sales")]
+        //[Authorize(Roles = "sales")]
         public ActionResult Index()
         {
             return View();
         }
+        public ActionResult Manage()
+        {
+            return View();
+        }
 
-        [Authorize(Roles = "sales")]
+        //[Authorize(Roles = "sales")]
         public ActionResult Receipt(int id)
         {
             var reg = model.Registrations.FirstOrDefault(r => r.Id == id);

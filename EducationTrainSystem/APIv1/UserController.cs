@@ -9,7 +9,7 @@ using System.Web.Security;
 using EducationTrainSystem.Library;
 using EducationTrainSystem.Models;
 
-namespace Education.APIv1
+namespace EducationTrainSystem.APIv1
 {
     public class UserController : ApiController
     {

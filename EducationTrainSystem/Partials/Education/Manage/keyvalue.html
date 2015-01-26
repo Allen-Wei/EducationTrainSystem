@@ -1,0 +1,123 @@
+﻿
+<!-- Item List -->
+<div class="row" ng-show="main.mode == 'list'">
+    <div class="col-sm-12">
+
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Description</th>
+                    <th>Mark</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="kv in main.list.entities">
+                    <td>{{kv.Id}}</td>
+                    <td>{{kv.Name}}</td>
+                    <td>{{kv.Value}}</td>
+                    <td>{{kv.Description}}</td>
+                    <td>{{kv.Mark}}</td>
+                    <td>
+                        <button class="btn btn-danger btn-xs glyphicon glyphicon-remove" ng-click="main.list.remove($index)"></button>
+                        <button class="btn btn-info btn-xs glyphicon glyphicon-pencil" ng-click="main.edit.show($index)"></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-12">
+        <button class="btn btn-default btn-sm fa fa-plus" ng-click="main.add.show()"></button> |
+        <button class="btn btn-default btn-sm fa fa-arrow-left" ng-click="main.list.page = main.list.page - 1" ng-disabled="main.list.page <= 1"></button>
+        <button class="btn btn-default btn-sm fa fa-arrow-right" ng-click="main.list.page = main.list.page + 1" ng-disabled="main.list.page >= main.list.pages"></button> |
+        Page: {{main.list.page}}  Pages: {{main.list.pages}}  Total: {{main.list.total}}
+    </div>
+</div>
+
+<!-- Edit Item -->
+
+<div class="row" ng-show="main.mode == 'edit'">
+    <form role="form">
+        <div class="col-sm-12">
+            <h5 class="text-center">编辑条目 <i>{{main.edit.entity.Name}}</i></h5>
+        </div>
+        <div class="col-sm-3">
+            Name
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.edit.entity.Name" />
+        </div>
+
+        <div class="col-sm-3">
+            Value
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.edit.entity.Value" />
+        </div>
+
+
+        <div class="col-sm-3">
+            Description
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.edit.entity.Description" />
+        </div>
+
+        <div class="col-sm-3">
+            Mark
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.edit.entity.Mark" />
+        </div>
+        <div class="col-sm-12">
+            <span ng-click="main.mode='list'" class="btn btn-default fa fa-arrow-left" title="return"></span>
+            <span class="btn btn-default fa fa-send" ng-click="main.edit.submit()"></span>
+        </div>
+    </form>
+</div>
+
+<!-- Add Item -->
+<div class="row" ng-show="main.mode == 'add'">
+    <form role="form">
+        <div class="col-sm-12">
+            <hr />
+            <h5 class="text-center">添加条目</i></h5>
+        </div>
+        <div class="col-sm-3">
+            Name
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.add.entity.Name" />
+        </div>
+
+        <div class="col-sm-3">
+            Value
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.add.entity.Value" />
+        </div>
+
+
+        <div class="col-sm-3">
+            Description
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.add.entity.Description" />
+        </div>
+
+        <div class="col-sm-3">
+            Mark
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.add.entity.Mark" />
+        </div>
+        <div class="col-sm-12">
+            <span ng-click="main.mode='list'" class="btn btn-default fa fa-arrow-left" title="return"></span>
+            <span class="btn btn-default fa fa-send" ng-click="main.add.submit()"></span>
+        </div>
+    </form>
+</div>
+

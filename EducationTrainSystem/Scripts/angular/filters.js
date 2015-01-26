@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var filters = angular.module('registration.filters', []);
+    var filters = angular.module('edu.filters', []);
     filters.filter('range', function () {
         return function (input, min, max) {
             var range = [];

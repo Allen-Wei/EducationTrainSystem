@@ -1,5 +1,5 @@
 ﻿(function () {
-    angular.module('registration.services', [])
+    angular.module('edu.services.global', [])
         .factory('TipSvc', function ($timeout) {
             var service = {
                 show: false,
@@ -32,70 +32,16 @@
             perPageLittle: 10,
             perPage: 5,
             perPageLarge: 50,
+
+            apiv1: '/APIv1/',
+            apiv2: '/APIv2/'
         })
-        .factory('RegSvc', function ($http, AppConstant) {
+        .factory('GlobalSvc', function (AppConstant) {
             var service = {
-                loadColleges: function () {
-                    var promise = $http({
-                        method: 'get',
-                        url: '/APIv1/College'
-                    });
-                    return promise;
+                getApiUrl: function (entity, version) {
+                    var url = (version === undefined ? AppConstant.apiv2 : AppConstant.apiv1) + enitty;
+                    return url;
                 }
-                     , add: function (reg) {
-                         var promise = $http({
-                             method: 'put',
-                             url: '/APIv1/Registration',
-                             data: reg
-                         });
-                         return promise;
-                     }
-                     , loadRegList: function (page) {
-                         var take = AppConstant.perPage;
-                         var skip = (page - 1) * take;
-                         var promise = $http({
-                             method: 'get',
-                             url: '/APIv1/Registration',
-                             params: { take: take, skip: skip }
-                         });
-                         return promise;
-                     }
-                     , getDetail: function (id) {
-                         var promise = $http({
-                             method: 'get',
-                             url: '/APIv1/Registration/' + id
-                         });
-                         return promise;
-                     }
-                     , update: function (reg) {
-                         var promise = $http({
-                             method: 'post',
-                             url: '/APIv1/Registration',
-                             data: reg
-                         });
-                         return promise;
-                     }
-                     , remove: function (id) {
-                         var promise = $http({
-                             method: 'delete',
-                             url: '/APIv1/Registration/' + id
-                         });
-                         return promise;
-                     }
-                     , loadCourseCategories: function () {
-                         var promise = $http({
-                             method: 'get',
-                             url: '/APIv1/CourseCategory'
-                         });
-                         return promise;
-                     }
-                     , loadCourses: function (categoryName) {
-                         var promise = $http({
-                             method: 'get',
-                             url: '/APIv1/Course?category=' + categoryName
-                         });
-                         return promise;
-                     }
             };
             return service;
         });

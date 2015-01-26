@@ -1,6 +1,6 @@
 ﻿(function () {
 
-    var directive = angular.module('registration.directives', []);
+    var directive = angular.module('edu.directives', []);
 
 
     directive.directive('selectDate', function ($rootScope) {

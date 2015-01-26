@@ -1,5 +1,8 @@
 ﻿/*
+Data Source=(localdb)\v11.0;Initial Catalog=EducationTrainSystem;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False
 sqlmetal /code:E:\LINQ2SQL\EducationTrainSystem.cs /server:ozosserver\ozos /user:sa /password:evoss /database:EducationTrainSystem /views /functions /sprocs /context:EducationTrain /pluralize /namespace:EducationTrainSystem.Models
+sqlmetal /code:E:\EducationTrainSystem.cs /server:(localdb)\v11.0 /database:EducationTrainSystem /views /functions /sprocs /context:EducationTrain /pluralize /namespace:EducationTrainSystem.Models
+
 		public EducationTrain() :
             base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString, mappingSource)
         {
@@ -8,11 +11,6 @@ sqlmetal /code:E:\LINQ2SQL\EducationTrainSystem.cs /server:ozosserver\ozos /user
 
 */
 
-drop table KeyValueMatches
-drop table KeyValueGroups
-drop table KeyValues
-drop table EducationTrains
-select * from sys.tables 
 
 /*
 Colleges => Professional
@@ -21,14 +19,14 @@ Colleges => Professional
 --RegistrationAddress, Colleges(成考, 自考), Subjects
 create table KeyValueGroups(
 	Id int identity(1,1) primary key,
-	Name varchar(500) not null,
+	Name varchar(500) unique not null,
 	Category varchar(500),
 	Description varchar(500)
 )
 go
 create table KeyValues(
 	Id int identity(1,1) primary key,
-	Name varchar(500) not null,
+	Name varchar(500) unique not null,
 	Value varchar(max),
 	Description varchar(500),
 	Mark varchar(500)
@@ -76,7 +74,7 @@ go
 create table Registrations
 (
 	Id int identity(1,1) primary key,						--记录Id
-	GId Uniqueidentifier  not null default NewID(),		
+	Gid Uniqueidentifier  not null default NewID(),		
 	GenerateDate datetime not null default getdate(),		--Generate Date
 
 	ReceiptNumber varchar(500) not null,					--票号
@@ -88,7 +86,7 @@ create table Registrations
 	
 	RegUserId uniqueidentifier null,						
 	RegTrainName varchar(500) null,
-	RegTrainId int  null,
+	RegTrainId uniqueidentifier null,
 	constraint FK_Reg_RU_RegUserId foreign key (RegUserId) references RegUsers(Gid) on delete set null on update cascade
 )
 go

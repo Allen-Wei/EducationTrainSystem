@@ -1,7 +1,7 @@
 ﻿
 <div class="row">
     <div class="col-sm-12 top10 bottom10">
-        <a href="#/new" class="btn btn-default glyphicon glyphicon-plus" title="新建报名记录"></a>
+        <a href="#/add" class="btn btn-default glyphicon glyphicon-plus" title="新建报名记录"></a>
     </div>
 </div>
 <div class="row">
@@ -23,13 +23,13 @@
                 <tbody>
                     <tr ng-repeat="reg in main.regs">
                         <td>
-                            <a href="#/detail/{{reg.Id}}">{{reg.Id}}</a>
+                            <a href="#/detail/{{reg.Registration.Gid}}">{{reg.Registration.Id}}</a>
                         </td>
-                        <td>{{reg.RegistrateDate | date:constant.ngDateFormat}}</td>
-                        <td>{{reg.StudentName}}</td>
-                        <td class="hidden-xs hidden-sm">{{reg.Gender ? '男' : '女'}}</td>
-                        <td>{{reg.Price | currency:'￥'}}</td>
-                        <td class="hidden-xs hidden-sm">{{reg.Payee}}</td>
+                        <td>{{reg.RegUser.RegDate | date:constant.ngDateFormat}}</td>
+                        <td>{{reg.RegUser.Name}}</td>
+                        <td class="hidden-xs hidden-sm">{{reg.RegUser.Gender ? '男' : '女'}}</td>
+                        <td>{{reg.Registration.Price | currency:'￥'}}</td>
+                        <td class="hidden-xs hidden-sm">{{reg.Registration.Payee}}</td>
                         <td>
                             <a href="#/edit/{{reg.Id}}" class="btn btn-xs btn-default glyphicon glyphicon-pencil"></a>
                             <a href="/Education/Receipt/{{reg.Id}}" target="_blank" class="btn btn-xs btn-default glyphicon glyphicon-print hidden-sm hidden-xs"></a>
@@ -39,8 +39,9 @@
                 </tbody>
             </table>
             <div class="panel-footer">
-                <button class="btn btn-default btn-sm glyphicon glyphicon-arrow-left" title="上一页" ng-disabled="main.page == 1" ng-click="main.page = main.page - 1"></button>
-                <button class="btn btn-default btn-sm glyphicon glyphicon-arrow-right" title="下一页" ng-disabled="main.page >= main.pages" ng-click="main.page = main.page + 1"></button>
+                <button class="btn btn-default btn-sm fa fa-refresh" ng-click="main.refresh()"></button>
+                <button class="btn btn-default btn-sm fa fa-arrow-left" title="上一页" ng-disabled="main.page == 1" ng-click="main.page = main.page - 1"></button>
+                <button class="btn btn-default btn-sm fa fa-arrow-right" title="下一页" ng-disabled="main.page >= main.pages" ng-click="main.page = main.page + 1"></button>
                 &nbsp; &nbsp;
                 Page: {{main.page}} &nbsp; Pages: {{main.pages}} &nbsp; Total: {{main.total}}
             </div>

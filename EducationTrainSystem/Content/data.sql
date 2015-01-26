@@ -1,20 +1,13 @@
-﻿--initial Colleges
-insert into Colleges(Gid, Name, CanRegistrate) values(NEWID(), '南开大学', 1)
-insert into Colleges(Gid, Name, CanRegistrate) values(NEWID(), '天津大学', 1)
-insert into Colleges(Gid, Name, CanRegistrate) values(NEWID(), '外国语学院', 1)
-insert into Colleges(Gid, Name, CanRegistrate) values(NEWID(), '财经大学', 1)
-insert into Colleges(Gid, Name, CanRegistrate) values(NEWID(), '中德职业技术', 0)
-insert into Colleges(Gid, Name, CanRegistrate) values(NEWID(), '电子信息技术', 0)
-
+﻿
 --Initial User and Roles
 insert into Roles(RoleName, ApplicationName) values('sales', 'alan')
 insert into UsersInRoles(UserId, RoleName, ApplicationName) values('sale1', 'sales', 'alan')
 insert into Users(Code, Email,Password) values('sale1', 'sale@qq.com', 'saleone')
 
 --Initial CourseCategories
-insert into Trains(Name, Description, Category) values('学历教育', '学历教育', 'c1');
-insert into Trains(Name, Description, Category) values('资格证培训', '资格证培训', 'c2');
-insert into Trains(Name, Description, Category) values('中小学辅导', '中小学辅导', 'c2');
+insert into Trains(Name, Description, Category) values('学历教育', '学历教育', 'EduTrain');
+insert into Trains(Name, Description, Category) values('资格证培训', '资格证培训', 'CertificationTrain');
+insert into Trains(Name, Description, Category) values('中小学辅导', '中小学辅导', 'SchoolTrain');
 
 --Initial Courses
 insert into Courses(Name, Description, TrainId) values('研究生','研究生', 1)
@@ -47,29 +40,35 @@ insert into KeyValues(Name, Mark) values('塘沽', '报名地点')
 insert into KeyValues(Name, Mark) values('南开', '报名地点')
 insert into KeyValues(Name, Mark) values('其他', '报名地点')
 insert into KeyValueGroups(Name, Description) values('regaddress', '报名地点')
-
+go
 declare @gid int 
-select @gid = id from KeyValueGroups where Name = 'regaddress'
+select @gid = Id from KeyValueGroups where Name = 'regaddress'
+print @gid
 insert into KeyValueMatches(GroupId, ValueId)
 select @gid as GroupId, Id as ValueId from KeyValues where Mark = '报名地点'
-
 go
 
 --Colleges
 insert into KeyValues(Name, Mark) values ('南开大学', 'college'), ('天津大学', 'college'), ('外国语学院', 'college'), ('财经大学', 'college'), ('中德职业技术', 'college'), ('电子信息技术', 'college')
-insert into KeyValueGroups(Name, description) values('chengkao', '成人高考')
-insert into KeyValueGroups(Name, description) values('zikao', '自考')
-
+insert into KeyValueGroups(Name, Description) values('chengkao', '成人高考')
+insert into KeyValueGroups(Name, Description) values('zikao', '自考')
+go
 declare @gid int 
-select @gid = id from KeyValueGroups where Name = 'zikao'
+select @gid = Id from KeyValueGroups where Name = 'chengkao'
+insert into KeyValueMatches(GroupId, ValueId)
+select @gid as GroupId, Id as ValueId from KeyValues where Mark = 'college'
+go
+declare @gid int 
+select @gid = Id from KeyValueGroups where Name = 'zikao'
 insert into KeyValueMatches(GroupId, ValueId)
 select @gid as GroupId, Id as ValueId from KeyValues where Mark = 'college'
 
+
 --Subjects
 insert into KeyValues(Name, Mark) values('语文', 'subject'), ('数学', 'subject'), ('英语', 'subject')
-insert into KeyValueGroups(Name, description) values('subjects', '科目')
-
+insert into KeyValueGroups(Name, Description) values('subjects', '科目')
+go
 declare @gid int 
-select @gid = id from KeyValueGroups where Name = 'subjects'
+select @gid = Id from KeyValueGroups where Name = 'subjects'
 insert into KeyValueMatches(GroupId, ValueId)
 select @gid as GroupId, Id as ValueId from KeyValues where Mark = 'subject'
