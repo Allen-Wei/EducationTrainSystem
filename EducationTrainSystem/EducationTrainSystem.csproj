@@ -154,6 +154,7 @@
     <Content Include="Partials\Education\Manage\keyvaluegroup.html" />
     <Content Include="Partials\Education\Manage\keyvalue.html" />
     <Content Include="Partials\Education\Manage\summary.html" />
+    <Content Include="Partials\Education\Registration\edit.html" />
     <Content Include="Partials\Education\Registration\detail.html" />
     <Content Include="Partials\Education\Registration\add.html" />
     <Content Include="Partials\Education\Registration\list.html" />
@@ -166,6 +167,7 @@
     <Content Include="Scripts\angular\services.keyvaluematch.js" />
     <Content Include="Scripts\angular\services.keyvaluegroup.js" />
     <Content Include="Scripts\angular\services.registration.js" />
+    <Content Include="Scripts\EduUtils.js" />
     <Content Include="Styles\animate.css" />
     <Content Include="Styles\bootstrap-theme.min.css" />
     <Content Include="Styles\bootstrap.min.css" />

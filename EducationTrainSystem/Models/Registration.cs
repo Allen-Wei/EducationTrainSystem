@@ -7,7 +7,7 @@ namespace EducationTrainSystem.Models
 {
     public partial class Registration
     {
-        public enum Train
+        public enum TrainsCategory
         {
             EduTrains,
             CertificationTrains,

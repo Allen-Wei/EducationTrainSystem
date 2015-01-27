@@ -31,8 +31,8 @@
                         <td>{{reg.Registration.Price | currency:'￥'}}</td>
                         <td class="hidden-xs hidden-sm">{{reg.Registration.Payee}}</td>
                         <td>
-                            <a href="#/edit/{{reg.Id}}" class="btn btn-xs btn-default glyphicon glyphicon-pencil"></a>
-                            <a href="/Education/Receipt/{{reg.Id}}" target="_blank" class="btn btn-xs btn-default glyphicon glyphicon-print hidden-sm hidden-xs"></a>
+                            <a href="#/edit/{{reg.Registration.Gid}}" class="btn btn-xs btn-default glyphicon glyphicon-pencil"></a>
+                            <a href="/Education/Receipt/{{reg.Registration.Gid}}" target="_blank" class="btn btn-xs btn-default glyphicon glyphicon-print hidden-sm hidden-xs"></a>
                             <button class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="main.remove($index)"></button>
                         </td>
                     </tr>

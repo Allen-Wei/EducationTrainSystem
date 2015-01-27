@@ -5,9 +5,9 @@ insert into UsersInRoles(UserId, RoleName, ApplicationName) values('sale1', 'sal
 insert into Users(Code, Email,Password) values('sale1', 'sale@qq.com', 'saleone')
 
 --Initial CourseCategories
-insert into Trains(Name, Description, Category) values('学历教育', '学历教育', 'EduTrain');
-insert into Trains(Name, Description, Category) values('资格证培训', '资格证培训', 'CertificationTrain');
-insert into Trains(Name, Description, Category) values('中小学辅导', '中小学辅导', 'SchoolTrain');
+insert into Trains(Name, Description, Category) values('学历教育', '学历教育', 'EduTrains');
+insert into Trains(Name, Description, Category) values('资格证培训', '资格证培训', 'CertificationTrains');
+insert into Trains(Name, Description, Category) values('中小学辅导', '中小学辅导', 'SchoolTrains');
 
 --Initial Courses
 insert into Courses(Name, Description, TrainId) values('研究生','研究生', 1)
@@ -50,8 +50,8 @@ go
 
 --Colleges
 insert into KeyValues(Name, Mark) values ('南开大学', 'college'), ('天津大学', 'college'), ('外国语学院', 'college'), ('财经大学', 'college'), ('中德职业技术', 'college'), ('电子信息技术', 'college')
-insert into KeyValueGroups(Name, Description) values('chengkao', '成人高考')
-insert into KeyValueGroups(Name, Description) values('zikao', '自考')
+insert into KeyValueGroups(Name, Description) values('成人高考', '成人高考')
+insert into KeyValueGroups(Name, Description) values('自学考试', '自考')
 go
 declare @gid int 
 select @gid = Id from KeyValueGroups where Name = 'chengkao'

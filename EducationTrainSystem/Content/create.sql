@@ -70,7 +70,6 @@ create table RegUsers(
 	HomeAddress varchar(500)								--户籍
 )
 go
-
 create table Registrations
 (
 	Id int identity(1,1) primary key,						--记录Id
@@ -83,10 +82,11 @@ create table Registrations
 	Payee varchar(500) not null,							--收款人
 	Note varchar(max),										--备注
 	Confirmed bit not null default 0,
+	Address varchar(500),
 	
 	RegUserId uniqueidentifier null,						
-	RegTrainName varchar(500) null,
-	RegTrainId uniqueidentifier null,
+	TrainCategory varchar(500) null,
+	TrainId uniqueidentifier null,
 	constraint FK_Reg_RU_RegUserId foreign key (RegUserId) references RegUsers(Gid) on delete set null on update cascade
 )
 go

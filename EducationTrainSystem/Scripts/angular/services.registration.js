@@ -5,7 +5,8 @@ angular.module('edu.services.reg', []).factory('RegSvc', function ($http, AppCon
     var service = {
         get: function (id) {
             var promise = undefined;
-            if (isNaN(parseInt(id))) {
+            if (!id) { throw 'error registration id at edu.services.reg -> get'; }
+            if (id.indexOf('-') != -1) {
                 promise = $http({
                     method: 'get',
                     url: '/APIv1/Registration',
@@ -33,8 +34,7 @@ angular.module('edu.services.reg', []).factory('RegSvc', function ($http, AppCon
         add: function () {
             var reg = arguments[0],
                 user = arguments[1],
-                trainType = arguments[2],
-                train = arguments[3];
+                train = arguments[2];
 
             if (arguments.length == 1) {
                 //arguments: reg
@@ -44,25 +44,35 @@ angular.module('edu.services.reg', []).factory('RegSvc', function ($http, AppCon
                 //arguments: reg, user
                 return this.__add2(reg, user);
             }
-            if (arguments.length == 4) {
+            if (arguments.length == 3) {
                 //arguments: reg, user, train type, train
-                var promiseFn = undefined;
 
-                switch (trainType) {
+                var data = { TrainType: train.Category, Reg: reg, User: user};
+
+                switch (train.Category) {
                     case 'EduTrain':
+                    case 'EduTrains':
                     case '学历教育':
-                    case '学历教育培训': promiseFn = this.__addWithEduTrain; break;
+                    case '学历教育培训': data.Edu = train; break;
                     case 'CertificationTrain':
+                    case 'CertificationTrains':
                     case 'CertTrain':
-                    case '资格证培训': promiseFn = this.__addWithCertTrain; break;
+                    case '资格证培训': data.Cert = train; break;
                     case 'SchoolTrain':
-                    case '中小学培训': promiseFn = this.__addWithSchoolTrain; break;
-                    default: promiseFn = undefined;
+                    case 'SchoolTrains':
+                    case '中小学培训': data.School= train; break;
+                    default: data = undefined;
                 }
-                if (!promiseFn) {
-                    throw 'error train type at services.registration -> add';
-                }
-                return promiseFn(reg, user, train);
+
+                if (data === undefined) { throw 'error train category at services.registration -> add';}
+
+                var promise = $http({
+                    method: 'put',
+                    url: '/APIv1/Registration?level=3',
+                    data: data
+                });
+                return promise;
+
             }
             throw 'error parameters at service.registrations -> add';
         },

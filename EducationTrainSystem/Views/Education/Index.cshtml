@@ -7,74 +7,34 @@
     @Html.Partial("~/Views/Partials/angular.cshtml")
     @Html.Partial("~/Views/Partials/angular.service.cshtml")
     @Html.Partial("~/Views/Partials/jqueryui.cshtml")
+    <script src="~/Scripts/EduUtils.js"></script>
 
     <style type="text/css">
-        input[type=radio] {
-            -webkit-appearance: radio;
-        }
+        input[type=radio] { -webkit-appearance: radio; }
 
-        input[type=checkbox] {
-            -webkit-appearance: checkbox;
-        }
+        input[type=checkbox] { -webkit-appearance: checkbox; }
 
-        .form-control[readonly] {
-            background-color: white;
-        }
+        .form-control[readonly] { background-color: white; }
 
-        .tip {
-            margin-left: -30px;
-            position: fixed;
-            z-index: 100;
-            background-color: rgba(30, 30, 30, 0.3);
-            width: 100%;
-            padding: 0 8px;
-            top: 50px;
-            min-height: 30px;
-            line-height: 30px;
-        }
+        .tip { margin-left: -30px; position: fixed; z-index: 100; background-color: rgba(30, 30, 30, 0.3); width: 100%; padding: 0 8px; top: 50px; min-height: 30px; line-height: 30px; }
 
-        .ellipsis {
-            display: inline-block;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+        .ellipsis { display: inline-block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 
-        .ellipsis-base {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+        .ellipsis-base { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 
-        .ng-hide, .hide {
-            display: none;
-        }
+        .ng-hide, .hide { display: none; }
 
-        .hey-inline {
-            display: inline-block;
-            width: auto;
-        }
+        .hey-inline { display: inline-block; width: auto; }
 
-        .input-group .form-control {
-            z-index: 1;
-        }
+        .input-group .form-control { z-index: 1; }
 
-        .top10 {
-            margin-top: 10px;
-        }
+        .top10 { margin-top: 10px; }
 
-        .bottom10 {
-            margin-bottom: 10px;
-        }
+        .bottom10 { margin-bottom: 10px; }
 
-        .new-form .col-xs-12 {
-            margin-top: 10px;
-            vertical-align: middle;
-        }
+        .new-form .col-xs-12 { margin-top: 10px; vertical-align: middle; }
         /*for form.html, detai.html*/
-        .header-sub {
-            color: #aaa;
-        }
+        .header-sub { color: #aaa; }
     </style>
 }
 
@@ -109,8 +69,8 @@
             controller: 'DetailCtrl',
             templateUrl: '/Partials/Education/Registration/detail.html'
         }).when('/edit/:id', {
-            controller: 'FormCtrl',
-            templateUrl: '/Partials/Education/Registration/form.html'
+            controller: 'EditCtrl',
+            templateUrl: '/Partials/Education/Registration/edit.html'
         }).when('/add', {
             controller: 'AddCtrl',
             templateUrl: '/Partials/Education/Registration/add.html'
@@ -185,7 +145,6 @@
         });
     });
     app.controller('DetailCtrl', function ($scope, $routeParams, RegSvc, TrainSvc, CourseSvc) {
-        //TODO 给表Registrations添加Address字段
         $scope.main = {
             reg: {}
         };
@@ -193,15 +152,18 @@
             $scope.main.reg = rep.data;
         });
     });
+
     app.controller('AddCtrl', function (
         $scope,
         $filter,
+        $location,
         AppConstant,
         KeyValueSvc,
         RegSvc,
         TrainSvc,
         CourseSvc,
         EduTrainSvc) {
+
         $scope.main = {
             user: {
                 RegDate: $filter('date')(new Date(), AppConstant.ngDateFormat),
@@ -220,7 +182,8 @@
                 Agent: '',
                 Payee: '',
                 Note: '',
-                Confirmed: true
+                Confirmed: true,
+                Address: ''
             },
             eduTrain: {
                 Course: '',
@@ -238,27 +201,36 @@
             },
 
             submit: function () {
-                var trainName = (this.assist.train || {})['Name'];
-                if (!trainName) { throw 'Invalid train name'; return; }
+                var trainCategory = (this.assist.train || {})['Category'];
+                if (!trainCategory) { throw 'Invalid train category at AddCtrl -> submit'; return; }
                 console.log('reg: ', this.reg);
                 console.log('user: ', this.user);
-                if (trainName == '学历教育') {
+                this.reg.Address = this.assist.regAddress.Name;
+                var train = undefined;
+                //学历教育
+                if (trainCategory == 'EduTrains') {
                     this.eduTrain.Course = this.assist.course.Name;
                     this.eduTrain.RegCollege = this.assist.regCollege.Name;
                     this.eduTrain.CurrentCollege = this.assist.currentCollege.Name;
                     console.log('edu: ', this.eduTrain);
-                    RegSvc.add(this.reg, this.user, trainName, this.eduTrain).then(function (rep) {
-                        console.log('server return: ', rep.data);
-                    });
+                    train =  this.eduTrain;
                 }
-                if (trainName == '资格证培训') {
+                //资格证培训
+                if (trainCategory == 'CertificationTrains') {
                     this.certTrain.Course = this.assist.course.Name;
                     this.certTrain.CurrentCollege = this.assist.currentCollege.Name;
                     console.log('cert: ', this.certTrain);
-                    RegSvc.add(this.reg, this.user, trainName, this.certTrain).then(function (rep) {
-                        console.log('cert train server return: ', rep.data);
-                    });;
+                    train = this.certTrain;
                 }
+                if (train == undefined) { throw 'error train at AddCtrl -> add';}
+                train['Category'] = trainCategory;
+                var promise = RegSvc.add(this.reg, this.user, train);
+                promise.then(function (rep) {
+                    console.log(rep.data);
+                    if (rep.data) {
+                        $location.path('/');
+                    }
+                });
             },
 
             assist: {
@@ -276,7 +248,6 @@
         };
 
 
-        //TODO load trains
         TrainSvc.getAll().then(function (rep) {
             $scope.main.assist.trains = rep.data;
             $scope.main.assist.train = $scope.main.assist.trains[0];
@@ -285,7 +256,6 @@
         //load courses
         $scope.$watch('main.assist.train.Id', function (newVal, oldVal) {
             if (!newVal) { return; }
-            //TODO
             CourseSvc.getByTrain(newVal).then(function (rep) {
                 $scope.main.assist.courses = rep.data;
                 $scope.main.assist.course = $scope.main.assist.courses[0];
@@ -314,7 +284,174 @@
         });
     });
 
+    app.controller('EditCtrl', function (
+        $scope,
+        $filter,
+        $location,
+        $routeParams,
+        AppConstant,
+        KeyValueSvc,
+        RegSvc,
+        TrainSvc,
+        CourseSvc,
+        EduTrainSvc) {
 
+
+        $scope.main = {
+            user: {
+                RegDate: $filter('date')(new Date(), AppConstant.ngDateFormat),
+                Name: '',
+                Nation: '汉',
+                Gender: true,
+                CardId: '',
+                Phone: '',
+                Phone2: '',
+                LiveAddress: '',
+                HomeAddress: '',
+            },
+            reg: {
+                ReceiptNumber: '',
+                Price: 0,
+                Agent: '',
+                Payee: '',
+                Note: '',
+                Confirmed: true,
+                Address: ''
+            },
+            eduTrain: {
+                Course: '',
+                RegCollege: '',
+                RegMajor: '',
+                EduType: '专科',
+                CurrentCollege: '',
+                CurrentGrade: '大一'
+            },
+            certTrain: {
+                Course: '',
+                CurrentCollege: '',
+                CurrentGrade: '大一',
+                EduType: '专科'
+            },
+
+            submit: function () {
+                var trainCategory = (this.assist.train || {})['Category'];
+                if (!trainCategory) { throw 'Invalid train category at AddCtrl -> submit'; return; }
+                console.log('reg: ', this.reg);
+                console.log('user: ', this.user);
+                this.reg.Address = this.assist.regAddress.Name;
+                var train = undefined;
+                //学历教育
+                if (trainCategory == 'EduTrains') {
+                    this.eduTrain.Course = this.assist.course.Name;
+                    this.eduTrain.RegCollege = this.assist.regCollege.Name;
+                    this.eduTrain.CurrentCollege = this.assist.currentCollege.Name;
+                    console.log('edu: ', this.eduTrain);
+                    train = this.eduTrain;
+                }
+                //资格证培训
+                if (trainCategory == 'CertificationTrains') {
+                    this.certTrain.Course = this.assist.course.Name;
+                    this.certTrain.CurrentCollege = this.assist.currentCollege.Name;
+                    console.log('cert: ', this.certTrain);
+                    train = this.certTrain;
+                }
+                if (train == undefined) { throw 'error train at AddCtrl -> add'; }
+                train['Category'] = trainCategory;
+                return;
+                var promise = RegSvc.add(this.reg, this.user, train);
+                promise.then(function (rep) {
+                    console.log(rep.data);
+                    if (rep.data) {
+                        $location.path('/');
+                    }
+                });
+            },
+
+            assist: {
+                trains: [],
+                train: {},
+                courses: [],
+                course: {},
+                regAddresses: [],
+                regAddress: {},
+                currentColleges: [],
+                currentCollege: {},
+                regColleges: [],
+                regCollege: {}
+            }
+        };
+
+        //load courses
+        $scope.$watch('main.assist.train.Id', function (newVal, oldVal) {
+            if (!newVal) { return; }
+            CourseSvc.getByTrain(newVal).then(function (rep) {
+                $scope.main.assist.courses = rep.data;
+                var index = 0;
+
+                if (oldVal === undefined) {
+                    //first load
+                    var trainCategory = $scope.main.assist.train.Category;
+                    var courseName = undefined;
+                    if (trainCategory == 'EduTrains') {
+                        courseName = $scope.main.eduTrain.Course;
+                    }
+                    if (trainCategory == 'CertificationTrains') {
+                        courseName = $scope.main.certTrain.Course;
+                    }
+                    index = EduUtils.getIndex(rep.data, 'Name', courseName);
+                }
+                $scope.main.assist.course = $scope.main.assist.courses[index];
+            });
+        });
+
+        //load registration college
+        $scope.$watch('main.assist.course.Name', function (newVal, oldVal) {
+            if (!newVal) { return; }
+            KeyValueSvc.getByGroup(newVal).then(function (rep) {
+                if (!rep.data) {
+                    rep.data = [{}];
+                }
+                $scope.main.assist.regColleges = rep.data;
+                $scope.main.assist.regCollege = $scope.main.assist.regColleges[0];
+            });;
+        });
+
+        //initialize
+        RegSvc.get($routeParams.id).then(function (regRep) {
+            var regEntity = regRep.data;
+            console.log(regEntity);
+            regEntity.RegUser.RegDate = $filter('date')(regEntity.RegUser.RegDate, AppConstant.ngDateFormat);
+            $.extend($scope.main.reg, regEntity.Registration);
+            $.extend($scope.main.user, regEntity.RegUser);
+            if (regEntity.EduTrain) {
+                $.extend($scope.main.eduTrain, regEntity.EduTrain);
+            }
+            if (regEntity.CertificationTrain) {
+                $.extend($scope.main.certTrain, regEntity.CertificationTrain);
+            }
+
+            //load trains
+            TrainSvc.getAll().then(function (trainRep) {
+                $scope.main.assist.trains = trainRep.data;
+                var index = EduUtils.getIndex(trainRep.data, 'Category', regEntity.Registration.TrainCategory);
+                $scope.main.assist.train = $scope.main.assist.trains[index];
+            });
+
+            //load registration address
+            RegSvc.loadRegAddresses().then(function (addrRep) {
+                $scope.main.assist.regAddresses = addrRep.data;
+                var index = EduUtils.getIndex(addrRep.data, 'Name', regEntity.Registration.Address);
+                $scope.main.assist.regAddress = $scope.main.assist.regAddresses[index];
+            });
+
+
+            //load all colleges
+            RegSvc.loadAllColleges().then(function (rep) {
+                $scope.main.assist.currentColleges = rep.data;
+                $scope.main.assist.currentCollege = $scope.main.assist.currentColleges[0];
+            });
+        });
+    });
 
 
 </script>

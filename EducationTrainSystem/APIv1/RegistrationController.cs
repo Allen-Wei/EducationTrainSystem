@@ -31,9 +31,9 @@ namespace EducationTrainSystem.APIv1
             HttpContext.Current.Response.AddHeader("X-HeyHey-Pages", pages.ToString());
             var query = (from reg in model.Registrations
                          join user in model.RegUsers.DefaultIfEmpty() on reg.RegUserId equals user.Gid into ru
-                         join edu in model.EduTrains.DefaultIfEmpty() on reg.RegTrainId equals edu.Gid into et
-                         join cert in model.CertificationTrains.DefaultIfEmpty() on reg.RegTrainId equals cert.Gid into ct
-                         join school in model.SchoolTrains.DefaultIfEmpty() on reg.RegTrainId equals school.Gid into st
+                         join edu in model.EduTrains.DefaultIfEmpty() on reg.TrainId equals edu.Gid into et
+                         join cert in model.CertificationTrains.DefaultIfEmpty() on reg.TrainId equals cert.Gid into ct
+                         join school in model.SchoolTrains.DefaultIfEmpty() on reg.TrainId equals school.Gid into st
                          select new
                          {
                              reg,
@@ -64,9 +64,9 @@ namespace EducationTrainSystem.APIv1
         {
             var query = (from reg in model.Registrations
                          join user in model.RegUsers.DefaultIfEmpty() on reg.RegUserId equals user.Gid into ru
-                         join edu in model.EduTrains.DefaultIfEmpty() on reg.RegTrainId equals edu.Gid into et
-                         join cert in model.CertificationTrains.DefaultIfEmpty() on reg.RegTrainId equals cert.Gid into ct
-                         join school in model.SchoolTrains.DefaultIfEmpty() on reg.RegTrainId equals school.Gid into st
+                         join edu in model.EduTrains.DefaultIfEmpty() on reg.TrainId equals edu.Gid into et
+                         join cert in model.CertificationTrains.DefaultIfEmpty() on reg.TrainId equals cert.Gid into ct
+                         join school in model.SchoolTrains.DefaultIfEmpty() on reg.TrainId equals school.Gid into st
                          where reg.Gid == gid
                          select new
                          {
@@ -99,13 +99,13 @@ namespace EducationTrainSystem.APIv1
 
             if (level == 3)
             {
-                if (entity.TrainType == Registration.Train.EduTrains)
-                    entity.Reg.RegTrainId = this.PutEduTrain(entity.Edu);
-                if (entity.TrainType == Registration.Train.CertificationTrains)
-                    entity.Reg.RegTrainId = this.PutCertTrain(entity.Cert);
-                if (entity.TrainType == Registration.Train.SchoolTrains)
-                    entity.Reg.RegTrainId = this.PutSchoolTrain(entity.School);
-                entity.Reg.RegTrainName = entity.TrainType.ToString();
+                if (entity.TrainType == Registration.TrainsCategory.EduTrains)
+                    entity.Reg.TrainId = this.PutEduTrain(entity.Edu);
+                if (entity.TrainType == Registration.TrainsCategory.CertificationTrains)
+                    entity.Reg.TrainId = this.PutCertTrain(entity.Cert);
+                if (entity.TrainType == Registration.TrainsCategory.SchoolTrains)
+                    entity.Reg.TrainId = this.PutSchoolTrain(entity.School);
+                entity.Reg.TrainCategory = entity.TrainType.ToString();
             }
             if (level == 2 || level == 3)
             {
@@ -172,7 +172,7 @@ namespace EducationTrainSystem.APIv1
 
         public class RegPutEntity
         {
-            public Registration.Train TrainType { get; set; }
+            public Registration.TrainsCategory TrainType { get; set; }
             public Registration Reg { get; set; }
             public RegUser User { get; set; }
             public EduTrain Edu { get; set; }
