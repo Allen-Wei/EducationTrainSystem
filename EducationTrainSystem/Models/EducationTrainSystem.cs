@@ -73,11 +73,13 @@ namespace EducationTrainSystem.Models
     partial void UpdateUsersInRole(UsersInRole instance);
     partial void DeleteUsersInRole(UsersInRole instance);
     #endregion
-				public EducationTrain() :
+
+			public EducationTrain() :
             base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString, mappingSource)
         {
             OnCreated();
         }
+		
 		public EducationTrain(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -1326,8 +1328,6 @@ namespace EducationTrainSystem.Models
 		
 		private System.Nullable<System.Guid> _TrainId;
 		
-		private EntityRef<RegUser> _RegUser;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1362,7 +1362,6 @@ namespace EducationTrainSystem.Models
 		
 		public Registration()
 		{
-			this._RegUser = default(EntityRef<RegUser>);
 			OnCreated();
 		}
 		
@@ -1577,10 +1576,6 @@ namespace EducationTrainSystem.Models
 			{
 				if ((this._RegUserId != value))
 				{
-					if (this._RegUser.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnRegUserIdChanging(value);
 					this.SendPropertyChanging();
 					this._RegUserId = value;
@@ -1626,40 +1621,6 @@ namespace EducationTrainSystem.Models
 					this._TrainId = value;
 					this.SendPropertyChanged("TrainId");
 					this.OnTrainIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Reg_RU_RegUserId", Storage="_RegUser", ThisKey="RegUserId", OtherKey="Gid", IsForeignKey=true)]
-		public RegUser RegUser
-		{
-			get
-			{
-				return this._RegUser.Entity;
-			}
-			set
-			{
-				RegUser previousValue = this._RegUser.Entity;
-				if (((previousValue != value) 
-							|| (this._RegUser.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._RegUser.Entity = null;
-						previousValue.Registrations.Remove(this);
-					}
-					this._RegUser.Entity = value;
-					if ((value != null))
-					{
-						value.Registrations.Add(this);
-						this._RegUserId = value.Gid;
-					}
-					else
-					{
-						this._RegUserId = default(Nullable<System.Guid>);
-					}
-					this.SendPropertyChanged("RegUser");
 				}
 			}
 		}
@@ -1711,8 +1672,6 @@ namespace EducationTrainSystem.Models
 		
 		private string _HomeAddress;
 		
-		private EntitySet<Registration> _Registrations;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1741,7 +1700,6 @@ namespace EducationTrainSystem.Models
 		
 		public RegUser()
 		{
-			this._Registrations = new EntitySet<Registration>(new Action<Registration>(this.attach_Registrations), new Action<Registration>(this.detach_Registrations));
 			OnCreated();
 		}
 		
@@ -1945,19 +1903,6 @@ namespace EducationTrainSystem.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_Reg_RU_RegUserId", Storage="_Registrations", ThisKey="Gid", OtherKey="RegUserId", DeleteRule="SET NULL")]
-		public EntitySet<Registration> Registrations
-		{
-			get
-			{
-				return this._Registrations;
-			}
-			set
-			{
-				this._Registrations.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1976,18 +1921,6 @@ namespace EducationTrainSystem.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Registrations(Registration entity)
-		{
-			this.SendPropertyChanging();
-			entity.RegUser = this;
-		}
-		
-		private void detach_Registrations(Registration entity)
-		{
-			this.SendPropertyChanging();
-			entity.RegUser = null;
 		}
 	}
 	

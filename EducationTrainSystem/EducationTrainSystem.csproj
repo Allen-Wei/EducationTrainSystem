@@ -137,6 +137,7 @@
     <Compile Include="Library\RolesProvider.cs" />
     <Compile Include="Library\Utils.cs" />
     <Compile Include="Models\EducationTrainSystem.cs" />
+    <Compile Include="Models\RegEntity.cs" />
     <Compile Include="Models\Registration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -192,6 +193,7 @@
     <Content Include="Styles\jquery-ui-1.10.4.min.css" />
     <Content Include="Scripts\angular\services.keyvalue.js" />
     <Content Include="Scripts\angular\services.regentity.js" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Vendors\amplify-vsdoc.js" />
     <Content Include="Vendors\amplify.min.js" />
     <Content Include="Vendors\angular-animate.min.js" />

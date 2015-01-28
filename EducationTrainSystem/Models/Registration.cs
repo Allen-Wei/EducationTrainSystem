@@ -13,5 +13,11 @@ namespace EducationTrainSystem.Models
             CertificationTrains,
             SchoolTrains
         }
+
+        public void Initial()
+        {
+            this.Gid = Guid.NewGuid();
+            this.GenerateDate = DateTime.Now;
+        }
     }
 }

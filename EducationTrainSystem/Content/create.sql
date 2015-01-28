@@ -86,9 +86,9 @@ create table Registrations
 	
 	RegUserId uniqueidentifier null,						
 	TrainCategory varchar(500) null,
-	TrainId uniqueidentifier null,
-	constraint FK_Reg_RU_RegUserId foreign key (RegUserId) references RegUsers(Gid) on delete set null on update cascade
+	TrainId uniqueidentifier null
 )
+
 go
 create table EduTrains(
 	Gid uniqueidentifier primary key default newid(),

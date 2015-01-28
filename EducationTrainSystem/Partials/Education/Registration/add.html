@@ -43,10 +43,12 @@
                             性别
                         </div>
                         <div class="col-sm-9 col-xs-12">
-                            <select class="form-control" ng-model="main.user.Gender">
-                                <option value="true">男</option>
-                                <option value="false">女</option>
-                            </select>
+                            <label>
+                                <input type="radio" ng-checked="main.user.Gender" ng-click="main.user.Gender = true" /> 男
+                            </label>
+                            <label>
+                                <input type="radio" ng-checked="!main.user.Gender" ng-click="main.user.Gender = false" /> 女
+                            </label>
                         </div>
 
                         <div class="col-sm-3 col-xs-12 header-sub">
@@ -123,7 +125,7 @@
                             收款人
                         </div>
                         <div class="col-sm-9 col-xs-12">
-                            <input type="text" value="" class="form-control" ng-model="main.reg.Payee" required />
+                            <input type="text" value="" class="form-control" ng-model="main.reg.Payee" required placeholder="收款人" />
                         </div>
 
                         <div class="col-sm-3 col-xs-12 header-sub">
@@ -137,7 +139,7 @@
                             备注
                         </div>
                         <div class="col-sm-9 col-xs-12">
-                            <input type="text" value="" class="form-control" ng-model="main.reg.Note" />
+                            <input type="text" value="" class="form-control" ng-model="main.reg.Note" placeholder="报名备注" />
                         </div>
 
                         <div class="col-sm-3 col-xs-12 header-sub">
@@ -163,23 +165,6 @@
             </div>
 
         </div>
-
-        <!--
-            //TODO 票号
-
-            CourseCategories(Id, Name, Description)
-            Courses(Id, Name, Description, CategoryId)
-
-            学历教育: 所报院校，学历类别
-            资格证培训, 所报课程, 中小学辅导:  所在院校， 所在年级
-
-            所在学校
-            课程类别
-            所报课程
-            所在院校
-            所报院校
-            所在年级
-        -->
 
         <div class="col-sm-6 col-xs-12">
 
@@ -267,7 +252,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <button ng-click="main.submit()" class="btn btn-default">Submit</button>
+            <button ng-click="main.submit()" class="btn btn-default" ng-disabled="NewForm.$invalid">Submit</button>
         </div>
     </div>
 

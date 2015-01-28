@@ -9,19 +9,10 @@ namespace EducationTrainSystem.Areas.APIv2.Controllers
 {
     public class RegController : Controller
     {
-        private EducationTrain model = new EducationTrain();
-        public JsonResult Apply(Registration reg)
+        public JsonResult Apply(RegEntity reg)
         {
-            reg.Gid = Guid.NewGuid();
-            reg.GenerateDate = DateTime.Now;
-            reg.Agent = " ";
-            reg.Payee = " ";
-            reg.Price = 0;
-            reg.ReceiptNumber = "";
-            reg.Confirmed = false;
-            model.Registrations.InsertOnSubmit(reg);
-            model.SubmitChanges();
-            return Json(reg);
+            var success = reg.Apply();
+            return Json(new { success, gid = reg.Reg.Gid });
         }
 
     }

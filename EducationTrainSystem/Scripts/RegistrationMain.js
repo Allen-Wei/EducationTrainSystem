@@ -77,8 +77,8 @@ app.controller('ListCtrl', function ($scope, RegEntitySvc, RegSvc, TrainSvc, Cou
             if (!reg) {
                 throw 'Cannot find ' + index;
             }
-
-            RegSvc.remove(reg.Id).then(function (rep) {
+            console.log(reg);
+            RegEntitySvc.remove(reg.Reg.Id).then(function (rep) {
                 if (rep.data) {
                     $scope.main.regs.splice(index, 1);
                 }
@@ -98,6 +98,7 @@ app.controller('ListCtrl', function ($scope, RegEntitySvc, RegSvc, TrainSvc, Cou
         $scope.main.load(newVal);
     });
 });
+
 app.controller('DetailCtrl', function ($scope, $routeParams, RegEntitySvc, RegSvc, TrainSvc, CourseSvc) {
     $scope.main = {
         reg: {}
@@ -124,7 +125,7 @@ app.controller('AddCtrl', function (
             RegDate: $filter('date')(new Date(), AppConstant.ngDateFormat),
             Name: '',
             Nation: '汉',
-            Gender: 'true',
+            Gender: true,
             CardId: '',
             Phone: '',
             Phone2: '',
@@ -158,30 +159,28 @@ app.controller('AddCtrl', function (
         submit: function () {
             var trainCategory = (this.assist.train || {})['Category'];
             if (!trainCategory) { throw 'Invalid train category at AddCtrl -> submit'; return; }
-            console.log('reg: ', this.reg);
-            console.log('user: ', this.user);
             this.reg.Address = this.assist.regAddress.Name;
+
             var train = undefined;
             //学历教育
             if (trainCategory == 'EduTrains') {
                 this.eduTrain.Course = this.assist.course.Name;
                 this.eduTrain.RegCollege = this.assist.regCollege.Name;
                 this.eduTrain.CurrentCollege = this.assist.currentCollege.Name;
-                console.log('edu: ', this.eduTrain);
                 train = this.eduTrain;
             }
             //资格证培训
             if (trainCategory == 'CertificationTrains') {
                 this.certTrain.Course = this.assist.course.Name;
                 this.certTrain.CurrentCollege = this.assist.currentCollege.Name;
-                console.log('cert: ', this.certTrain);
                 train = this.certTrain;
             }
+
             if (train == undefined) { throw 'error train at AddCtrl -> add'; }
             train['Category'] = trainCategory;
+
             var promise = RegEntitySvc.add(this.reg, this.user, train);
             promise.then(function (rep) {
-                console.log(rep.data);
                 if (rep.data) {
                     $location.path('/');
                 }
@@ -266,7 +265,7 @@ app.controller('EditCtrl', function (
             HomeAddress: '',
         },
         reg: {
-            Gid:'',
+            Gid: '',
             ReceiptNumber: '',
             Price: 0,
             Agent: '',
@@ -302,14 +301,12 @@ app.controller('EditCtrl', function (
                 this.eduTrain.Course = this.assist.course.Name;
                 this.eduTrain.RegCollege = this.assist.regCollege.Name;
                 this.eduTrain.CurrentCollege = this.assist.currentCollege.Name;
-                console.log('edu: ', this.eduTrain);
                 train = this.eduTrain;
             }
             //资格证培训
             if (trainCategory == 'CertificationTrains') {
                 this.certTrain.Course = this.assist.course.Name;
                 this.certTrain.CurrentCollege = this.assist.currentCollege.Name;
-                console.log('cert: ', this.certTrain);
                 train = this.certTrain;
             }
 
@@ -320,15 +317,13 @@ app.controller('EditCtrl', function (
                 this.reg.TrainCategory = trainCategory;
                 this.reg.TrainId = '';
             }
-            console.log('reg: ', this.reg);
-            console.log('user: ', this.user);
-            console.log('train: ', train);
 
             var promise = RegEntitySvc.update(this.reg, this.user, train);
             promise.then(function (rep) {
-                console.log(rep.data);
                 if (rep.data) {
-                    //$location.path('/');
+                    $location.path('/');
+                } else {
+
                 }
             });
         },
@@ -385,7 +380,9 @@ app.controller('EditCtrl', function (
     //initialize
     RegEntitySvc.get($routeParams.id).then(function (regRep) {
         var regEntity = regRep.data;
-        regEntity.User.RegDate = $filter('date')(regEntity.User.RegDate, AppConstant.ngDateFormat);
+        if (regEntity.User) {
+            regEntity.User.RegDate = $filter('date')(regEntity.User.RegDate, AppConstant.ngDateFormat);
+        }
         $.extend($scope.main.reg, regEntity.Reg);
         $.extend($scope.main.user, regEntity.User);
         if (regEntity.Edu) {
@@ -419,4 +416,7 @@ app.controller('EditCtrl', function (
 });
 
 
+app.controller('DemoCtrl', function ($scope) {
+    $scope.Gender = true;
+});
 

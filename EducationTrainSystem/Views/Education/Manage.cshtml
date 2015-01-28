@@ -10,76 +10,33 @@
     @Html.Partial("~/Views/Partials/angular.service.cshtml")
 
     <style type="text/css">
-        input[type=radio] {
-            -webkit-appearance: radio;
-        }
+        input[type=radio] { -webkit-appearance: radio; }
 
-        input[type=checkbox] {
-            -webkit-appearance: checkbox;
-        }
+        input[type=checkbox] { -webkit-appearance: checkbox; }
 
-        .form-control[readonly] {
-            background-color: white;
-        }
+        .form-control[readonly] { background-color: white; }
 
-        .tip {
-            margin-left: -30px;
-            position: fixed;
-            z-index: 100;
-            background-color: rgba(30, 30, 30, 0.3);
-            width: 100%;
-            padding: 0 8px;
-            top: 50px;
-            min-height: 30px;
-            line-height: 30px;
-        }
+        .tip { margin-left: -30px; position: fixed; z-index: 100; background-color: rgba(30, 30, 30, 0.3); width: 100%; padding: 0 8px; top: 50px; min-height: 30px; line-height: 30px; }
 
-        .ellipsis {
-            display: inline-block;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+        .ellipsis { display: inline-block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 
-        .ellipsis-base {
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
+        .ellipsis-base { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
 
-        .ng-hide, .hide {
-            display: none;
-        }
+        .ng-hide, .hide { display: none; }
 
-        .hey-inline {
-            display: inline-block;
-            width: auto;
-        }
+        .hey-inline { display: inline-block; width: auto; }
 
-        .input-group .form-control {
-            z-index: 1;
-        }
+        .input-group .form-control { z-index: 1; }
 
-        .top10 {
-            margin-top: 10px;
-        }
+        .top10 { margin-top: 10px; }
 
-        .bottom10 {
-            margin-bottom: 10px;
-        }
+        .bottom10 { margin-bottom: 10px; }
 
-        .new-form .col-xs-12 {
-            margin-top: 10px;
-            vertical-align: middle;
-        }
+        .new-form .col-xs-12 { margin-top: 10px; vertical-align: middle; }
         /*for form.html, detai.html*/
-        .header-sub {
-            color: #aaa;
-        }
+        .header-sub { color: #aaa; }
 
-        form > div {
-            margin-top: 10px;
-        }
+        form > div { margin-top: 10px; }
     </style>
 
 }
@@ -88,11 +45,44 @@
 
 <div ng-app="Manage">
     <div ng-controller="BodyCtrl">
+        
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#/" style="padding: 7px 0 0 8px;">
+                        <span class=" fa fa-home fa-2x"></span>
+                    </a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="#/keyvalue">KeyValue</a>
+                        </li>
+                        <li>
+                            <a href="#/keyvaluegroup">KeyValueGroup</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        
+
+        
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="#/keyvalue">KeyValue</a>
-                    <a href="#/keyvaluegroup">KeyValueGroup</a>
+                    <ul class="nav list-group">
+                        
+                    </ul>
                 </div>
             </div>
         </div>
