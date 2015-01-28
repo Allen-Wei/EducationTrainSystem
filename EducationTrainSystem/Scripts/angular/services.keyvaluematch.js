@@ -2,12 +2,14 @@
 angular.module('edu.services.keyvaluematch', [])
     .factory('KeyValueMatchSvc', function ($http, AppConstant) {
         var service = {
-            getApi: function (append) {
-                var url = '/APIv1/KeyValueMatch';
-                if (append) { return url + '/' + append; }
-                return url;
 
+            getApi: function (append) {
+                return AppConstant.getApi({
+                    entity: 'KeyValueMatch',
+                    params: append
+                });
             },
+
             get: function (id) {
                 var promise = $http({
                     method: 'get',

@@ -23,16 +23,16 @@
                 <tbody>
                     <tr ng-repeat="reg in main.regs">
                         <td>
-                            <a href="#/detail/{{reg.Registration.Gid}}">{{reg.Registration.Id}}</a>
+                            <a href="#/detail/{{reg.Reg.Gid}}">{{reg.Reg.Id}}</a>
                         </td>
-                        <td>{{reg.RegUser.RegDate | date:constant.ngDateFormat}}</td>
-                        <td>{{reg.RegUser.Name}}</td>
-                        <td class="hidden-xs hidden-sm">{{reg.RegUser.Gender ? '男' : '女'}}</td>
-                        <td>{{reg.Registration.Price | currency:'￥'}}</td>
-                        <td class="hidden-xs hidden-sm">{{reg.Registration.Payee}}</td>
+                        <td>{{reg.User.RegDate | date:constant.ngDateFormat}}</td>
+                        <td>{{reg.User.Name}}</td>
+                        <td class="hidden-xs hidden-sm">{{reg.User.Gender ? '男' : '女'}}</td>
+                        <td>{{reg.Reg.Price | currency:'￥'}}</td>
+                        <td class="hidden-xs hidden-sm">{{reg.Reg.Payee}}</td>
                         <td>
-                            <a href="#/edit/{{reg.Registration.Gid}}" class="btn btn-xs btn-default glyphicon glyphicon-pencil"></a>
-                            <a href="/Education/Receipt/{{reg.Registration.Gid}}" target="_blank" class="btn btn-xs btn-default glyphicon glyphicon-print hidden-sm hidden-xs"></a>
+                            <a href="#/edit/{{reg.Reg.Gid}}" class="btn btn-xs btn-default glyphicon glyphicon-pencil"></a>
+                            <a href="/Education/Receipt/{{reg.Reg.Gid}}" target="_blank" class="btn btn-xs btn-default glyphicon glyphicon-print hidden-sm hidden-xs"></a>
                             <button class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="main.remove($index)"></button>
                         </td>
                     </tr>

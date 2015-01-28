@@ -2,11 +2,12 @@
 angular.module('edu.services.keyvaluegroup', [])
     .factory('KeyValueGroupSvc', function ($http, AppConstant) {
         var service = {
-            getApi: function (append) {
-                var url = '/APIv1/KeyValueGroup';
-                if (append) { return url + '/' + append; }
-                return url;
 
+            getApi: function (append) {
+                return AppConstant.getApi({
+                    entity: 'KeyValueGroup',
+                    params: append
+                });
             },
             get: function (id) {
                 var promise = $http({

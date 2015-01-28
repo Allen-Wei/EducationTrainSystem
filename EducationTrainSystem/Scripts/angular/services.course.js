@@ -3,11 +3,12 @@ angular.module('edu.services.course', [])
     .factory('CourseSvc', function ($http, AppConstant) {
         var service = {
             getApi: function (append) {
-                var url = '/APIv1/Course';
-                if (append) { return url + '/' + append; }
-                return url;
-
+                return AppConstant.getApi({
+                    entity: 'Course',
+                    params: append
+                });
             },
+
 
             get: function (id) {
                 var promise = $http({

@@ -3,11 +3,12 @@ angular.module('edu.services.edutrain', [])
     .factory('EduTrainSvc', function ($http, AppConstant) {
         var service = {
             getApi: function (append) {
-                var url = '/APIv1/EduTrain';
-                if (append) { return url + '/' + append; }
-                return url;
-
+                return AppConstant.getApi({
+                    entity: 'EduTrain',
+                    params: append
+                });
             },
+
 
             get: function (id) {
                 var promise = $http({

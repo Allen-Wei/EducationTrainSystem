@@ -1,4 +1,4 @@
-﻿@model Education.Models.Registration
+﻿@model EducationTrainSystem.Models.Registration
 @{
     Layout = null;
 }
@@ -41,9 +41,9 @@
             <tbody>
                 <tr>
                     <td colspan="3" class="w3">
-                        <input type="text" value="@Model.RegistrateDate.Year" /> <span>年</span>
-                        <input type="text" value="@Model.RegistrateDate.Month" /> <span>月</span>
-                        <input type="text" value="@Model.RegistrateDate.Day" /> <span>日</span>
+                        <input type="text" value="Year" /> <span>年</span>
+                        <input type="text" value="Month" /> <span>月</span>
+                        <input type="text" value="Day" /> <span>日</span>
                     </td>
                     <td colspan="1" class="w1 text-right" style="font-size: 18px;">
                         字 No <span>43873830</span>
@@ -54,7 +54,7 @@
                         <pre>今      收       到</pre>
                     </td>
                     <td colspan="3" class="w3 td-bottom-down">
-                        <input type="text" value="@String.Format("{0:F2}", Model.StudentName)" class="wfull" />
+                        <input type="text" value="Model.StudentName" class="wfull" />
                     </td>
                 </tr>
                 <tr>
@@ -110,7 +110,7 @@
                                     交款人
                                 </td>
                                 <td>
-                                    @Model.StudentName
+                                    Model.StudentName
                                 </td>
                             </tr>
                         </table>

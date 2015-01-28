@@ -1,4 +1,7 @@
-﻿(function () {
+﻿/// <reference path="E:\Repositories\EducationTrainSystem\EducationTrainSystem\Vendors/angular.min.js" />
+/// <reference path="E:\Repositories\EducationTrainSystem\EducationTrainSystem\Vendors/jquery-2.1.3.min.js" />
+
+(function () {
     angular.module('edu.services.global', [])
         .factory('TipSvc', function ($timeout) {
             var service = {
@@ -33,8 +36,26 @@
             perPage: 5,
             perPageLarge: 50,
 
-            apiv1: '/APIv1/',
-            apiv2: '/APIv2/'
+            getApi: function(inOptions) {
+                var options  = {
+                    url: undefined,
+                    version: 1,
+                    entity: 'api entity',
+
+                    params: undefined //{para: value} append with get params
+                };
+                $.extend(options, inOptions);
+                var apiUrl = '/APIv' + options.version + '/' + options.entity;
+                if (options.url) { apiUrl = options.url; }
+                if (options.params) {
+                    if ($.isPlainObject(options.params)) {
+                        apiUrl += '?' + $.params(options.params);
+                    } else {
+                        apiUrl += '/' + options.params;
+                    }
+                }
+                return apiUrl;
+            }
         })
         .factory('GlobalSvc', function (AppConstant) {
             var service = {

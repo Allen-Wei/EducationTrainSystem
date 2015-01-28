@@ -114,6 +114,7 @@
     <Compile Include="APIv1\KeyValueController.cs" />
     <Compile Include="APIv1\KeyValueGroupController.cs" />
     <Compile Include="APIv1\KeyValueMatchController.cs" />
+    <Compile Include="APIv1\RegEntityController.cs" />
     <Compile Include="APIv1\TrainController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -168,6 +169,7 @@
     <Content Include="Scripts\angular\services.keyvaluegroup.js" />
     <Content Include="Scripts\angular\services.registration.js" />
     <Content Include="Scripts\EduUtils.js" />
+    <Content Include="Scripts\RegistrationMain.js" />
     <Content Include="Styles\animate.css" />
     <Content Include="Styles\bootstrap-theme.min.css" />
     <Content Include="Styles\bootstrap.min.css" />
@@ -189,6 +191,7 @@
     <Content Include="Styles\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Styles\jquery-ui-1.10.4.min.css" />
     <Content Include="Scripts\angular\services.keyvalue.js" />
+    <Content Include="Scripts\angular\services.regentity.js" />
     <None Include="Vendors\amplify-vsdoc.js" />
     <Content Include="Vendors\amplify.min.js" />
     <Content Include="Vendors\angular-animate.min.js" />
@@ -238,7 +241,7 @@
   <ItemGroup>
     <Content Include="Views\Education\Apply.cshtml" />
     <Content Include="Views\Education\ApplySuccess.cshtml" />
-    <Content Include="Views\Education\Index.cshtml" />
+    <Content Include="Views\Education\Registration.cshtml" />
     <Content Include="Views\Education\Receipt.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Partials\angular.cshtml" />

@@ -2,11 +2,12 @@
 angular.module('edu.services.train', [])
     .factory('TrainSvc', function ($http, AppConstant) {
         var service = {
-            getApi: function (append) {
-                var url = '/APIv1/Train';
-                if (append) { return url + '/' + append; }
-                return url;
 
+            getApi: function (append) {
+                return AppConstant.getApi({
+                    entity: 'Train',
+                    params: append
+                });
             },
 
             get: function (id) {

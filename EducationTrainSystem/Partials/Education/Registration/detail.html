@@ -20,55 +20,55 @@
                     <div class="col-sm-3 col-xs-12 header-sub">
                         报名日期
                     </div>
-                    <div class="col-sm-9 col-xs-12">{{main.reg.RegUser.RegDate | date: constant.ngDateFormat}}</div>
+                    <div class="col-sm-9 col-xs-12">{{main.reg.User.RegDate | date: constant.ngDateFormat}}</div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         姓名
                     </div>
-                    <div class="col-sm-9 col-xs-12">{{main.reg.RegUser.Name}}</div>
+                    <div class="col-sm-9 col-xs-12">{{main.reg.User.Name}}</div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         性别
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.RegUser.Gender ? '男' : '女'}}
+                        {{main.reg.User.Gender ? '男' : '女'}}
                     </div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         身份证号
                     </div>
-                    <div class="col-sm-9 col-xs-12">{{main.reg.RegUser.CardId}}</div>
+                    <div class="col-sm-9 col-xs-12">{{main.reg.User.CardId}}</div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         民族
                     </div>
-                    <div class="col-sm-9 col-xs-12">{{main.reg.RegUser.Nation}}</div>
+                    <div class="col-sm-9 col-xs-12">{{main.reg.User.Nation}}</div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         电话
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.RegUser.Phone}}
+                        {{main.reg.User.Phone}}
                     </div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         备用电话
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.RegUser.Phone2}}
+                        {{main.reg.User.Phone2}}
                     </div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         户籍
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.RegUser.HomeAddress}}
+                        {{main.reg.User.HomeAddress}}
                     </div>
                     <div class="col-sm-3 col-xs-12 header-sub">
                         住址
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.RegUser.LiveAddress}}
+                        {{main.reg.User.LiveAddress}}
                     </div>
 
                     <!-- Registration Information-->
@@ -76,54 +76,54 @@
                         生效
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.Registration.Confirmed ? '是' : '否'}}
+                        {{main.reg.Reg.Confirmed ? '是' : '否'}}
                     </div>
                     <div class="col-sm-3 col-xs-12 header-sub">
                         票据编号
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.Registration.ReceiptNumber}}
+                        {{main.reg.Reg.ReceiptNumber}}
                     </div>
                     <div class="col-sm-3 col-xs-12 header-sub">
                         费用
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.Registration.Price}}
+                        {{main.reg.Reg.Price}}
                     </div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         代理人
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.Registration.Agent}}
+                        {{main.reg.Reg.Agent}}
                     </div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         收款人
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.Registration.Payee}}
+                        {{main.reg.Reg.Payee}}
                     </div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         地址
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.Registration.Address}} &nbsp;
+                        {{main.reg.Reg.Address}} &nbsp;
                     </div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         备注
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.Registration.Note}} &nbsp;
+                        {{main.reg.Reg.Note}} &nbsp;
                     </div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         课程类别
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.Registration.RegTrainName}}
+                        {{main.reg.Reg.RegTrainName}}
                     </div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
@@ -140,7 +140,7 @@
 
     <div class="col-sm-6 col-xs-12">
 
-        <div class="panel panel-info" ng-show="main.reg.Registration.RegTrainName == 'EduTrains'">
+        <div class="panel panel-info" ng-show="main.reg.Reg.TrainCategory == 'EduTrains'">
             <div class="panel-heading">学历教育培训</div>
             <div class="panel-body">
                 <div class="row">
@@ -154,47 +154,47 @@
                         所报课程
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.EduTrain.Course}}
+                        {{main.reg.Edu.Course}}
                     </div>
-                    
+
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         所报院校
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.EduTrain.RegCollege}}
+                        {{main.reg.Edu.RegCollege}}
                     </div>
                     <div class="col-sm-3 col-xs-12 header-sub">
                         所报专业
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.EduTrain.RegMajor}}
+                        {{main.reg.Edu.RegMajor}}
                     </div>
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         学历类别
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.EduTrain.EduType}}
+                        {{main.reg.Edu.EduType}}
                     </div>
                     <div class="col-sm-3 col-xs-12 header-sub">
                         所在学校
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.EduTrain.CurrentCollege}}
+                        {{main.reg.Edu.CurrentCollege}}
                     </div>
                     <div class="col-sm-3 col-xs-12 header-sub">
                         所在年级
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.EduTrain.CurrentGrade}}
+                        {{main.reg.Edu.CurrentGrade}}
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <div class="panel panel-info" ng-show="main.reg.Registration.RegTrainName == 'CertificationTrains'">
+        <div class="panel panel-info" ng-show="main.reg.Reg.TrainCategory== 'CertificationTrains'">
             <div class="panel-heading">资格证培训</div>
             <div class="panel-body">
                 <div class="row">
@@ -208,27 +208,27 @@
                         资格证培训
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.CertificationTrain.Course}}
+                        {{main.reg.Cert.Course}}
                     </div>
-                    
+
 
                     <div class="col-sm-3 col-xs-12 header-sub">
                         所在院校
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.CertificationTrain.CurrentCollege}}
+                        {{main.reg.Cert.CurrentCollege}}
                     </div>
                     <div class="col-sm-3 col-xs-12 header-sub">
                         所在年级
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                        {{main.reg.CertificationTrain.CurrentGrade}}
+                        {{main.reg.Cert.CurrentGrade}}
                     </div>
                     <div class="col-sm-3 col-xs-12 header-sub">
                         学历类别
                     </div>
                     <div class="col-sm-9 col-xs-12">
-                       {{main.reg.CertificationTrain.EduType}}
+                        {{main.reg.Cert.EduType}}
                     </div>
                 </div>
             </div>

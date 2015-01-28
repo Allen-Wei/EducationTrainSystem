@@ -14,7 +14,7 @@ namespace EducationTrainSystem.Controllers
         private EducationTrain model = new EducationTrain();
 
         //[Authorize(Roles = "sales")]
-        public ActionResult Index()
+        public ActionResult Registration()
         {
             return View();
         }
