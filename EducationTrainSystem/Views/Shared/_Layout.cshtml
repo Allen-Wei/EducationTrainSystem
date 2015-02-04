@@ -26,9 +26,17 @@
     </div>
     <div class="edu-footer">
         <div class="copyright">
-            <span class="fa fa-copyright"></span> 2015 allen.way@qq.com
+            <span class="fa fa-copyright"></span> 2015 Education Train System
         </div>
     </div>
     @RenderSection("scripts", required: false)
+    
+    <script>
+        $(document).ready(function () {
+            $('body').on('mouseover', '.edu-tooltip', function () {
+                $(this).removeClass('edu-tooltip').tooltip('show');
+            });
+        });
+    </script>
 </body>
 </html>

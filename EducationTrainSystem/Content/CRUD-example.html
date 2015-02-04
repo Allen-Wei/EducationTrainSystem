@@ -91,9 +91,10 @@ namespace EducationTrainSystem.APIv1
     .factory('KeyValueSvc', function ($http, AppConstant) {
         var service = {
             getApi: function (append) {
-                var url = '/APIv1/[api address]';
-                if (append) { return url + '/' + append; }
-                return url;
+                return AppConstant.getApi({
+                    entity: '[API Controller Name]',
+                    params: append
+                });
             },
             get: function (id) {
                 var promise = $http({

@@ -223,6 +223,47 @@
         </div>
 
 
+        <div class="panel panel-info" ng-show="main.reg.Reg.TrainCategory == 'SchoolTrains'">
+            <div class="panel-heading">中小学辅导</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        课程类别
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        中小学辅导
+                    </div>
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        所报课程
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.School.Course}}
+                    </div>
+
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        所在阶段
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        {{main.reg.School.RegStage}}
+                    </div>
+
+                    <div class="col-sm-3 col-xs-12 header-sub">
+                        科目
+                    </div>
+                    <div class="col-sm-9 col-xs-12">
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="sub in main.reg.School.SchoolSubjects">
+                                {{sub.Name}} / {{sub.Hours}}H / {{sub.PricePerHours | currency: '￥'}}
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 </div>

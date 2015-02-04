@@ -46,6 +46,7 @@
         amplify.publish('path.refresh', navData);
 
         $('#main-show .btn:eq(1)').on('click', function () {
+			return;
             $(this).closest('div').slideUp();
             $('#main-login').slideDown();
             navData[1].text = '登录';

@@ -1,4 +1,6 @@
-﻿
+﻿/// <reference path="E:\Repositories\EducationTrainSystem\EducationTrainSystem\Vendors/references.js" />
+
+
 var app = angular.module('Registration', [
     'ngRoute',
     'edu.directives',
@@ -11,7 +13,8 @@ var app = angular.module('Registration', [
     'edu.services.keyvalue',
     'edu.services.keyvaluegroup',
     'edu.services.keyvaluematch',
-    'edu.services.edutrain'
+    'edu.services.edutrain',
+    'edu.services.schoolsubject'
 ]);
 app.config(function ($routeProvider) {
     $routeProvider.when('/', {
@@ -99,12 +102,18 @@ app.controller('ListCtrl', function ($scope, RegEntitySvc, RegSvc, TrainSvc, Cou
     });
 });
 
-app.controller('DetailCtrl', function ($scope, $routeParams, RegEntitySvc, RegSvc, TrainSvc, CourseSvc) {
+app.controller('DetailCtrl', function ($scope, $routeParams, RegEntitySvc, SchoolSubjectSvc) {
     $scope.main = {
         reg: {}
     };
     RegEntitySvc.get($routeParams.id).then(function (rep) {
         $scope.main.reg = rep.data;
+
+        if ($scope.main.reg.School) {
+            SchoolSubjectSvc.getByTrain(rep.data.School.Gid).then(function (rep) {
+                $scope.main.reg.School.SchoolSubjects = rep.data;
+            });
+        }
     });
 });
 
@@ -118,7 +127,8 @@ app.controller('AddCtrl', function (
     RegSvc,
     TrainSvc,
     CourseSvc,
-    EduTrainSvc) {
+    EduTrainSvc,
+    SchoolSubjectSvc) {
 
     $scope.main = {
         user: {
@@ -155,6 +165,24 @@ app.controller('AddCtrl', function (
             CurrentGrade: '大一',
             EduType: '专科'
         },
+        schoolTrain: {
+            Course: '',
+            SchoolSubjects: [/*{Name, Hours, PricePerHours}*/],
+            RegStage: '初中',
+
+
+            tempSubject: { Name: '', Hours: 1, PricePerHours: 1, subject: {} },
+            addSubject: function () {
+                this.tempSubject.Name = this.tempSubject.subject.Name;
+                this.SchoolSubjects.push($.extend({}, this.tempSubject));
+                this.tempSubject.Hours = 1;
+                this.tempSubject.PricePerHours = 1;
+                this.tempSubject.subject = $scope.main.assist.subjects[0];
+            },
+            removeSubject: function (index) {
+                this.SchoolSubjects.splice(index, 1);
+            }
+        },
 
         submit: function () {
             var trainCategory = (this.assist.train || {})['Category'];
@@ -174,6 +202,12 @@ app.controller('AddCtrl', function (
                 this.certTrain.Course = this.assist.course.Name;
                 this.certTrain.CurrentCollege = this.assist.currentCollege.Name;
                 train = this.certTrain;
+            }
+            //中小学培训
+            if (trainCategory == 'SchoolTrains') {
+                this.schoolTrain.Course = this.assist.course.Name;
+                train = this.schoolTrain;
+                console.log(this.schoolTrain);
             }
 
             if (train == undefined) { throw 'error train at AddCtrl -> add'; }
@@ -197,11 +231,18 @@ app.controller('AddCtrl', function (
             currentColleges: [],
             currentCollege: {},
             regColleges: [],
-            regCollege: {}
+            regCollege: {},
+            subjects: []
         }
     };
 
+    //load registration address
+    RegSvc.loadRegAddresses().then(function (rep) {
+        $scope.main.assist.regAddresses = rep.data;
+        $scope.main.assist.regAddress = $scope.main.assist.regAddresses[0];
+    });
 
+    //load trains
     TrainSvc.getAll().then(function (rep) {
         $scope.main.assist.trains = rep.data;
         $scope.main.assist.train = $scope.main.assist.trains[0];
@@ -215,11 +256,7 @@ app.controller('AddCtrl', function (
             $scope.main.assist.course = $scope.main.assist.courses[0];
         });
     });
-    //load registration address
-    RegSvc.loadRegAddresses().then(function (rep) {
-        $scope.main.assist.regAddresses = rep.data;
-        $scope.main.assist.regAddress = $scope.main.assist.regAddresses[0];
-    });
+
     //load all colleges
     RegSvc.loadAllColleges().then(function (rep) {
         $scope.main.assist.currentColleges = rep.data;
@@ -236,6 +273,14 @@ app.controller('AddCtrl', function (
             $scope.main.assist.regCollege = $scope.main.assist.regColleges[0];
         });;
     });
+
+    //load subjects for school trains
+    KeyValueSvc.getByGroup('school-trains-subjects').then(function (rep) {
+        if (rep.data) {
+            $scope.main.assist.subjects = rep.data;
+            $scope.main.schoolTrain.tempSubject.subject = $scope.main.assist.subjects[0];
+        }
+    });
 });
 
 app.controller('EditCtrl', function (
@@ -249,7 +294,8 @@ app.controller('EditCtrl', function (
     RegEntitySvc,
     TrainSvc,
     CourseSvc,
-    EduTrainSvc) {
+    EduTrainSvc,
+    SchoolSubjectSvc) {
 
 
     $scope.main = {
@@ -290,6 +336,25 @@ app.controller('EditCtrl', function (
             CurrentGrade: '大一',
             EduType: '专科'
         },
+        schoolTrain: {
+            Course: '',
+            SchoolSubjects: [/*{Name, Hours, PricePerHours}*/],
+            RegStage: '小学',
+
+
+            tempSubject: { Name: '', Hours: 1, PricePerHours: 1, subject: {} },
+            addSubject: function () {
+                this.tempSubject.Name = this.tempSubject.subject.Name;
+                this.SchoolSubjects.push($.extend({}, this.tempSubject));
+                this.tempSubject.Hours = 1;
+                this.tempSubject.PricePerHours = 1;
+                this.tempSubject.subject = $scope.main.assist.subjects[0];
+            },
+            removeSubject: function (index) {
+                this.SchoolSubjects.splice(index, 1);
+            }
+        },
+
 
         submit: function () {
             var trainCategory = (this.assist.train || {})['Category'];
@@ -309,6 +374,13 @@ app.controller('EditCtrl', function (
                 this.certTrain.CurrentCollege = this.assist.currentCollege.Name;
                 train = this.certTrain;
             }
+            //中小学培训
+            if (trainCategory == 'SchoolTrains') {
+                this.schoolTrain.Course = this.assist.course.Name;
+                train = this.schoolTrain;
+                console.log(this.schoolTrain);
+            }
+
 
             if (train == undefined) { throw 'error train at EditCtrl -> submit'; }
             train.Gid = this.reg.TrainId;
@@ -338,7 +410,8 @@ app.controller('EditCtrl', function (
             currentColleges: [],
             currentCollege: {},
             regColleges: [],
-            regCollege: {}
+            regCollege: {},
+            subjects: []
         }
     };
 
@@ -412,6 +485,34 @@ app.controller('EditCtrl', function (
             $scope.main.assist.currentColleges = rep.data;
             $scope.main.assist.currentCollege = $scope.main.assist.currentColleges[0];
         });
+
+
+        //load subjects for school trains
+        KeyValueSvc.getByGroup('school-trains-subjects').then(function (rep) {
+            if (rep.data) {
+                $scope.main.assist.subjects = rep.data;
+                $scope.main.schoolTrain.tempSubject.subject = $scope.main.assist.subjects[0];
+            }
+        });
+
+        if ($scope.main.reg.TrainCategory == 'SchoolTrains') {
+
+            //load subjects for SchoolTrains
+            SchoolSubjectSvc.getByTrain($scope.main.reg.TrainId).then(function (rep) {
+                console.log('SchoolTrains: ', rep.data);
+                if (rep.data) {
+                    for (var i = 0; i < rep.data.length; i++) {
+                        var sub = rep.data[i];
+                        $scope.main.schoolTrain.SchoolSubjects.push({
+                            //Id: sub.Id,
+                            Name: sub.Name,
+                            Hours: sub.Hours,
+                            PricePerHours: sub.PricePerHours
+                        });
+                    }
+                }
+            });
+        }
     });
 });
 

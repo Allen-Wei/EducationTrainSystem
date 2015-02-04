@@ -119,8 +119,8 @@ create table SchoolSubjects(
 	TrainId uniqueidentifier not null, 
 	Name varchar(500) not null,
 	Hours int null,
-	PricePerSubject money null,
-	constraint FK_SS_ST_TrainId foreign key (TrainId) references SchoolTrains(Gid)
+	PricePerSubject money null
+	--, constraint FK_SS_ST_TrainId foreign key (TrainId) references SchoolTrains(Gid) on update cascade on delete cascade
 )
 
 CREATE TABLE Roles

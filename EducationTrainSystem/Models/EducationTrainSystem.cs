@@ -73,13 +73,11 @@ namespace EducationTrainSystem.Models
     partial void UpdateUsersInRole(UsersInRole instance);
     partial void DeleteUsersInRole(UsersInRole instance);
     #endregion
-
 			public EducationTrain() :
             base(global::System.Configuration.ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString, mappingSource)
         {
             OnCreated();
         }
-		
 		public EducationTrain(string connection) : 
 				base(connection, mappingSource)
 		{
@@ -2024,9 +2022,7 @@ namespace EducationTrainSystem.Models
 		
 		private System.Nullable<int> _Hours;
 		
-		private System.Nullable<decimal> _PricePerSubject;
-		
-		private EntityRef<SchoolTrain> _SchoolTrain;
+		private System.Nullable<decimal> _PricePerHours;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2040,13 +2036,12 @@ namespace EducationTrainSystem.Models
     partial void OnNameChanged();
     partial void OnHoursChanging(System.Nullable<int> value);
     partial void OnHoursChanged();
-    partial void OnPricePerSubjectChanging(System.Nullable<decimal> value);
-    partial void OnPricePerSubjectChanged();
+    partial void OnPricePerHoursChanging(System.Nullable<decimal> value);
+    partial void OnPricePerHoursChanged();
     #endregion
 		
 		public SchoolSubject()
 		{
-			this._SchoolTrain = default(EntityRef<SchoolTrain>);
 			OnCreated();
 		}
 		
@@ -2081,10 +2076,6 @@ namespace EducationTrainSystem.Models
 			{
 				if ((this._TrainId != value))
 				{
-					if (this._SchoolTrain.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnTrainIdChanging(value);
 					this.SendPropertyChanging();
 					this._TrainId = value;
@@ -2134,56 +2125,22 @@ namespace EducationTrainSystem.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PricePerSubject", DbType="Money")]
-		public System.Nullable<decimal> PricePerSubject
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PricePerHours", DbType="Money")]
+		public System.Nullable<decimal> PricePerHours
 		{
 			get
 			{
-				return this._PricePerSubject;
+				return this._PricePerHours;
 			}
 			set
 			{
-				if ((this._PricePerSubject != value))
+				if ((this._PricePerHours != value))
 				{
-					this.OnPricePerSubjectChanging(value);
+					this.OnPricePerHoursChanging(value);
 					this.SendPropertyChanging();
-					this._PricePerSubject = value;
-					this.SendPropertyChanged("PricePerSubject");
-					this.OnPricePerSubjectChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SS_ST_TrainId", Storage="_SchoolTrain", ThisKey="TrainId", OtherKey="Gid", IsForeignKey=true)]
-		public SchoolTrain SchoolTrain
-		{
-			get
-			{
-				return this._SchoolTrain.Entity;
-			}
-			set
-			{
-				SchoolTrain previousValue = this._SchoolTrain.Entity;
-				if (((previousValue != value) 
-							|| (this._SchoolTrain.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._SchoolTrain.Entity = null;
-						previousValue.SchoolSubjects.Remove(this);
-					}
-					this._SchoolTrain.Entity = value;
-					if ((value != null))
-					{
-						value.SchoolSubjects.Add(this);
-						this._TrainId = value.Gid;
-					}
-					else
-					{
-						this._TrainId = default(System.Guid);
-					}
-					this.SendPropertyChanged("SchoolTrain");
+					this._PricePerHours = value;
+					this.SendPropertyChanged("PricePerHours");
+					this.OnPricePerHoursChanged();
 				}
 			}
 		}
@@ -2221,8 +2178,6 @@ namespace EducationTrainSystem.Models
 		
 		private string _RegStage;
 		
-		private EntitySet<SchoolSubject> _SchoolSubjects;
-		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2237,7 +2192,6 @@ namespace EducationTrainSystem.Models
 		
 		public SchoolTrain()
 		{
-			this._SchoolSubjects = new EntitySet<SchoolSubject>(new Action<SchoolSubject>(this.attach_SchoolSubjects), new Action<SchoolSubject>(this.detach_SchoolSubjects));
 			OnCreated();
 		}
 		
@@ -2301,19 +2255,6 @@ namespace EducationTrainSystem.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="FK_SS_ST_TrainId", Storage="_SchoolSubjects", ThisKey="Gid", OtherKey="TrainId", DeleteRule="NO ACTION")]
-		public EntitySet<SchoolSubject> SchoolSubjects
-		{
-			get
-			{
-				return this._SchoolSubjects;
-			}
-			set
-			{
-				this._SchoolSubjects.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -2332,18 +2273,6 @@ namespace EducationTrainSystem.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_SchoolSubjects(SchoolSubject entity)
-		{
-			this.SendPropertyChanging();
-			entity.SchoolTrain = this;
-		}
-		
-		private void detach_SchoolSubjects(SchoolSubject entity)
-		{
-			this.SendPropertyChanging();
-			entity.SchoolTrain = null;
 		}
 	}
 	

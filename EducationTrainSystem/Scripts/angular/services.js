@@ -49,7 +49,7 @@
                 if (options.url) { apiUrl = options.url; }
                 if (options.params) {
                     if ($.isPlainObject(options.params)) {
-                        apiUrl += '?' + $.params(options.params);
+                        apiUrl += '?' + $.param(options.params);
                     } else {
                         apiUrl += '/' + options.params;
                     }

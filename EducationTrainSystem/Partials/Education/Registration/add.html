@@ -1,7 +1,5 @@
 ﻿<style type="text/css">
-    input.ng-dirty.ng-invalid {
-        border: 1px solid red;
-    }
+    input.ng-dirty.ng-invalid { border: 1px solid red; }
 </style>
 
 <div class="row top10 bottom10">
@@ -232,7 +230,7 @@
                                 <option value="大四">大四</option>
                             </select>
                         </div>
-                         <div class="col-sm-3 col-xs-12 header-sub">
+                        <div class="col-sm-3 col-xs-12 header-sub">
                             学历类别
                         </div>
                         <div class="col-sm-9 col-xs-12">
@@ -245,6 +243,44 @@
                 </div>
             </div>
 
+            <div class="panel panel-info" ng-show="main.assist.train.Category == 'SchoolTrains'">
+                <div class="panel-heading">中小学辅导</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            所在阶段
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control" ng-model="main.schoolTrain.RegStage">
+                                <option value="小学">小学</option>
+                                <option value="初中">初中</option>
+                                <option value="高中">高中</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            科目
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control edu-inline edu-tooltip" ng-options="ss.Name for ss in main.assist.subjects" ng-model="main.schoolTrain.tempSubject.subject" title="培训科目"></select>
+                            <input class="form-control edu-inline text-center edu-tooltip" type="number" ng-model="main.schoolTrain.tempSubject.Hours" style="width: 60px" title="培训时间，单位小时" />
+                            <input class="form-control edu-inline text-center edu-tooltip" type="number" ng-model="main.schoolTrain.tempSubject.PricePerHours" style="width: 80px" title="每小时价格" />
+                            <button class="btn btn-default" ng-click="main.schoolTrain.addSubject()">添加科目</button>
+                        </div>
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            已添加科目
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="sub in main.schoolTrain.SchoolSubjects">
+                                    <span class="fa fa-remove edu-tooltip text-danger" title="删除科目 {{sub.Name}}" ng-click="main.schoolTrain.removeSubject($index)"></span>
+                                    {{sub.Name}} / {{sub.Hours}}H / {{sub.PricePerHours | currency: '￥'}}
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
         </div>
 

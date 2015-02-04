@@ -104,6 +104,7 @@ namespace EducationTrainSystem.Models
             reg.TrainCategory = entity.TrainCategory.ToString();
 
             model.SubmitChanges();
+          
             return true;
         }
 
@@ -179,7 +180,13 @@ namespace EducationTrainSystem.Models
         }
         private Guid PutTrain(SchoolTrain train)
         {
+            train.Gid = Guid.NewGuid();
             model.SchoolTrains.InsertOnSubmit(train);
+            foreach (var sub in train.SchoolSubjects)
+            {
+                sub.TrainId = train.Gid;
+            }
+            model.SchoolSubjects.InsertAllOnSubmit(train.SchoolSubjects);
             return train.Gid;
         }
         #endregion
@@ -213,7 +220,13 @@ namespace EducationTrainSystem.Models
         {
             var query = model.SchoolTrains.FirstOrDefault(t => t.Gid == entity.Gid);
             if (query == null) return false;
-            query.SetValuesExclude(entity, "Gid");
+            query.RegStage = entity.RegStage;
+            model.SchoolSubjects.DeleteAllOnSubmit(model.SchoolSubjects.Where(ss=>ss.TrainId == entity.Gid));
+            foreach (var sub in entity.SchoolSubjects)
+            {
+                sub.TrainId = entity.Gid;
+            }
+            model.SchoolSubjects.InsertAllOnSubmit(entity.SchoolSubjects);
             return true;
         }
         #endregion
@@ -239,6 +252,7 @@ namespace EducationTrainSystem.Models
         {
             var query = model.SchoolTrains.FirstOrDefault(t => t.Gid == id);
             if (query == null) return false;
+            model.SchoolSubjects.DeleteAllOnSubmit(model.SchoolSubjects.Where(ss=>ss.TrainId == query.Gid));
             model.SchoolTrains.DeleteOnSubmit(query);
             return true;
         }
