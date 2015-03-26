@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="Areas\APIv2\APIv2AreaRegistration.cs" />
     <Compile Include="Areas\APIv2\Controllers\RegController.cs" />
+    <Compile Include="Areas\APIv2\Controllers\UserController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -234,6 +235,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\APIv2\Models\" />
     <Folder Include="Areas\APIv2\Views\Shared\" />
+    <Folder Include="Areas\APIv2\Views\User\" />
     <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>

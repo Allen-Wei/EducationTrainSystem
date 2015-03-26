@@ -10,7 +10,7 @@ using EducationTrainSystem.Models;
 
 namespace EducationTrainSystem.APIv1
 {
-    //[Authorize(Roles = "sales")]
+    [Authorize(Roles = "sales")]
 
     public class RegistrationController : ApiController
     {

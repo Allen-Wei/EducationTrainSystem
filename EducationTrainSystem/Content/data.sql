@@ -3,6 +3,13 @@
 insert into Roles(RoleName, ApplicationName) values('sales', 'alan')
 insert into UsersInRoles(UserId, RoleName, ApplicationName) values('sale1', 'sales', 'alan')
 insert into Users(Code, Email,Password) values('sale1', 'sale@qq.com', 'saleone')
+go
+
+insert into Roles(RoleName, ApplicationName) values('admin', 'alan')
+go
+insert into Users(Code, Email, Password) values('admin', 'admin@edu.com', '123456')
+go
+insert into UsersInRoles(UserId, RoleName, ApplicationName) values('admin', 'admin', 'alan')
 
 --Initial CourseCategories
 insert into Trains(Name, Description, Category) values('学历教育', '学历教育', 'EduTrains');

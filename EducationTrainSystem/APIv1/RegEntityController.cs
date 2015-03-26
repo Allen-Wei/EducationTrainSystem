@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web.Security;
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
@@ -13,6 +14,7 @@ using EducationTrainSystem.Library;
 
 namespace EducationTrainSystem.APIv1
 {
+    [Authorize(Roles="sales")]
     public class RegEntityController : ApiController
     {
        
@@ -93,6 +95,7 @@ namespace EducationTrainSystem.APIv1
                          join edu in model.EduTrains.DefaultIfEmpty() on reg.TrainId equals edu.Gid into et
                          join cert in model.CertificationTrains.DefaultIfEmpty() on reg.TrainId equals cert.Gid into ct
                          join school in model.SchoolTrains.DefaultIfEmpty() on reg.TrainId equals school.Gid into st
+                         orderby reg.Id descending
                          select new
                          {
                              reg,
