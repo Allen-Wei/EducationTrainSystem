@@ -1,0 +1,129 @@
+﻿@model EducationTrainSystem.Models.Registration
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Receipt</title>
+    <style>
+        * { margin: 0; padding: 0; font-family: 楷体; }
+        input[type=text] { font-family: 微软雅黑; border: none; border-bottom: 1px solid black; font-size: 18px; padding: 2px 0; }
+        .receipt { margin: 10px; padding: 0; border-collapse: collapse;  width: 800px; }
+        .receipt tr { height: 30px; line-height: 30px; }
+        .receipt tr td { padding-top: 5px; }
+        .receipt tr:nth-child(1) input { width: 120px;text-align: center; }
+
+        .receipt table { border-collapse: collapse; float: right; margin-left: 20px; margin-top: -30px;}
+        .receipt table tr td { border: 1px solid black; padding: 0; }
+        .receipt table tr td:first-child {  width: 18px; font-size: 15px; padding-left: 3px; line-height: 20px; }
+        .receipt table tr td:last-child {width: 130px; text-align: center;}
+
+        .w1 { width: 20%; }
+        .w2 { width: 40%; }
+        .w3 { width: 60%; }
+        .w4 { width: 80%; }
+        .wfull { width: 620px; }
+
+        .td-bottom-down{padding-bottom: 10px;}
+
+        .text-right { text-align: right; }
+        .justify { }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <table class="receipt">
+            <tbody>
+                <tr>
+                    <td colspan="3" class="w3">
+                        <input type="text" value="Year" /> <span>年</span>
+                        <input type="text" value="Month" /> <span>月</span>
+                        <input type="text" value="Day" /> <span>日</span>
+                    </td>
+                    <td colspan="1" class="w1 text-right" style="font-size: 18px;">
+                        字 No <span>43873830</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w1">
+                        <pre>今      收       到</pre>
+                    </td>
+                    <td colspan="3" class="w3 td-bottom-down">
+                        <input type="text" value="Model.StudentName" class="wfull" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <pre>交               来</pre>
+                    </td>
+                    <td colspan="3" class="w3 td-bottom-down">
+                        <input type="text" value="@String.Format("{0:F2}", Model.Price)" class="wfull" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <pre>人      民       币</pre>
+                    </td>
+                    <td colspan="3" class="w3 td-bottom-down">
+                        <input type="text" value="@String.Format("{0:F2}", Model.Price)" class="wfull" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2" class="text-right">
+                        ￥ <input type="text" />
+                    </td>
+                </tr>
+                
+
+                <tr style="height: 120px;">
+                    <td class="w1" style="padding-bottom: 10px;">
+                        <pre>
+收    款    单   位
+公               章
+</pre>
+                    </td>
+                    <td class="w1">
+                        <input type="text" value="" />
+                    </td>
+                    <td colspan="2" class="w2">
+                        <table>
+                            <tr>
+                                <td>
+                                    收款人
+                                </td>
+                                <td>
+                                    @Model.Payee
+                                </td>
+                            </tr>
+                        </table>
+                        
+                        <table>
+                            <tr>
+                                <td>
+                                    交款人
+                                </td>
+                                <td>
+                                    Model.StudentName
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        window.onload = function () {
+            window.print();
+        };
+    </script>
+</body>
+
+</html>

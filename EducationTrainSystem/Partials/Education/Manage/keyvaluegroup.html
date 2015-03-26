@@ -1,0 +1,161 @@
+﻿
+
+<div class="row" ng-show="main.mode == 'list'">
+    <div class="col-sm-12">
+
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="kv in main.list.entities">
+                    <td>{{kv.Id}}</td>
+                    <td>{{kv.Name}}</td>
+                    <td>{{kv.Category}}</td>
+                    <td>{{kv.Description}}</td>
+                    <td>
+                        <button class="btn btn-danger btn-xs glyphicon glyphicon-remove" ng-click="main.list.remove($index)"></button>
+                        <button class="btn btn-info btn-xs glyphicon glyphicon-pencil" ng-click="main.edit.show($index)"></button>
+                        <button class="btn btn-default btn-xs glyphicon glyphicon-wrench" ng-click="main.manage.show($index)"></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-12">
+        <i class="btn btn-default btn-sm fa fa-refresh" ng-click="main.list.refresh()"></i>
+
+        <button class="btn btn-default btn-sm fa fa-plus" ng-click="main.add.show()"></button> |
+        <button class="btn btn-default btn-sm fa fa-arrow-left" ng-click="main.list.page = main.list.page - 1" ng-disabled="main.list.page <= 1"></button>
+        <button class="btn btn-default btn-sm fa fa-arrow-right" ng-click="main.list.page = main.list.page + 1" ng-disabled="main.list.page >= main.list.pages"></button> |
+        Page: {{main.list.page}}  Pages: {{main.list.pages}}  Total: {{main.list.total}}
+    </div>
+</div>
+
+<div class="row" ng-show="main.mode == 'edit'">
+    <form role="form">
+        <div class="col-sm-12">
+            <h5 class="text-center">编辑条目 <b>{{main.edit.entity.Name}}</b></h5>
+        </div>
+        <div class="col-sm-3">
+            Name
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.edit.entity.Name" />
+        </div>
+
+        <div class="col-sm-3">
+            Category
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.edit.entity.Category" />
+        </div>
+
+
+        <div class="col-sm-3">
+            Description
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.edit.entity.Description" />
+        </div>
+
+
+        <div class="col-sm-12">
+            <span ng-click="main.mode='list'" class="btn btn-default fa fa-arrow-left" title="return"></span>
+            <span class="btn btn-default fa fa-send" ng-click="main.edit.submit()"></span>
+        </div>
+    </form>
+</div>
+
+
+<div class="row" ng-show="main.mode == 'add'">
+    <form role="form">
+        <div class="col-sm-12">
+            <hr />
+            <h5 class="text-center">添加条目</h5>
+        </div>
+        <div class="col-sm-3">
+            Name
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.add.entity.Name" />
+        </div>
+
+        <div class="col-sm-3">
+            Category
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.add.entity.Category" />
+        </div>
+
+
+        <div class="col-sm-3">
+            Description
+        </div>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" ng-model="main.add.entity.Description" />
+        </div>
+
+        <div class="col-sm-12">
+            <span ng-click="main.mode='list'" class="btn btn-default fa fa-arrow-left" title="return"></span>
+            <span class="btn btn-default fa fa-send" ng-click="main.add.submit()"></span>
+        </div>
+    </form>
+</div>
+
+<div class="row" ng-show="main.mode=='manage'">
+    <div class="col-sm-12">
+        <h5 class="text-center"><b>{{main.manage.group.Description || main.manage.group.Name}}</b> 分配</h5>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="include in main.manage.includes.list">
+                    <i class="fa fa-remove" title="将 {{include.Name}} 从当前分组删除" ng-click="main.manage.includes.remove($index)"></i> {{include.Name}}
+                </li>
+                <li class="list-group-item">
+                    <i class="btn btn-default btn-sm fa fa-refresh" ng-click="main.manage.includes.refresh()"></i>
+
+                    <i class="btn btn-default btn-sm fa fa-arrow-left"
+                       ng-click="main.manage.includes.page = main.manage.includes.page - 1"
+                       ng-disabled="main.manage.includes.page <= 1"></i>
+                    <i class="btn btn-default btn-sm fa fa-arrow-right"
+                       ng-click="main.manage.includes.page = main.manage.includes.page + 1"
+                       ng-disabled="main.manage.includes.page >= main.manage.includes.pages"></i>
+                    &nbsp;|&nbsp;
+                    Page: {{main.manage.includes.page}} Pages: {{main.manage.includes.pages}}
+                </li>
+            </ul>
+
+        </div>
+        <div class="col-sm-6">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="exclude in main.manage.excludes.list">
+                    <i class="fa fa-remove" title="将 {{exclude.Name}} 分配到当前分组" ng-click="main.manage.excludes.remove($index)"></i> {{exclude.Name}}
+                </li>
+                <li class="list-group-item">
+                    <i class="btn btn-default btn-sm fa fa-refresh" ng-click="main.manage.excludes.refresh()"></i>
+
+                    <i class="btn btn-default btn-sm fa fa-arrow-left"
+                       ng-click="main.manage.excludes.page = main.manage.excludes.page - 1"
+                       ng-disabled="main.manage.excludes.page <= 1"></i>
+                    <i class="btn btn-default btn-sm fa fa-arrow-right"
+                       ng-click="main.manage.excludes.page = main.manage.excludes.page + 1"
+                       ng-disabled="main.manage.excludes.page >= main.manage.excludes.pages"></i>
+                    &nbsp;|&nbsp;
+                    Page: {{main.manage.excludes.page}} Pages: {{main.manage.excludes.pages}}
+
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <span ng-click="main.mode='list'" class="btn btn-default fa fa-arrow-left"></span>
+    </div>
+</div>
