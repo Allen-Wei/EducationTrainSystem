@@ -112,7 +112,6 @@ app.controller('ListCtrl', function ($scope, RegEntitySvc, RegSvc, TrainSvc, Cou
     //load trains
     TrainSvc.getAll().then(function (rep) {
         $scope.main.trains = $scope.main.trains.concat(rep.data);
-        console.log($scope.main.trains);
         $scope.main.train = $scope.main.trains[0];
     });
 
@@ -463,7 +462,7 @@ app.controller('EditCtrl', function (
             }
             $scope.main.assist.regColleges = rep.data;
             $scope.main.assist.regCollege = $scope.main.assist.regColleges[0];
-        });;
+        });
     });
 
     //initialize
