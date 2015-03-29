@@ -1,7 +1,13 @@
 ﻿
 <div class="row">
     <div class="col-sm-12 top10 bottom10">
-        <a href="#/add" class="btn btn-default glyphicon glyphicon-plus" title="新建报名记录"></a>
+        <a href="#/add" class="btn btn-default" title="新建报名记录">添加</a>
+        <select class="form-control"
+                style="display: inline; width: auto;"
+                ng-model="main.train"
+                ng-options="t.Description for t in main.trains"
+                ng-change="main.refresh()">
+        </select>
     </div>
 </div>
 <div class="row">

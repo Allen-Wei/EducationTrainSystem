@@ -33,7 +33,7 @@
             ngDateFormatDetail: 'yyyy-MM-dd h:mm:ss a',
             uiDateFormat: 'yy-mm-dd',
             perPageLittle: 10,
-            perPage: 5,
+            perPage: 10,
             perPageLarge: 50,
 
             getApi: function(inOptions) {

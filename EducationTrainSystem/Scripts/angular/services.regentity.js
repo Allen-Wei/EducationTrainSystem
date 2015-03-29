@@ -37,6 +37,16 @@ angular.module('edu.services.regentity', []).factory('RegEntitySvc', function ($
             });
             return promise;
         },
+        getListByTrain: function (train, page) {
+            var take = AppConstant.perPage;
+            var skip = (page - 1) * take;
+            var promise = $http({
+                method: 'get',
+                url: this.getApi(),
+                params: { train: train, take: take, skip: skip }
+            });
+            return promise;
+        },
 
         add: function (reg, user, train) {
 

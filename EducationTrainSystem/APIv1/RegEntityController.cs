@@ -120,6 +120,43 @@ namespace EducationTrainSystem.APIv1
             return query;
         }
 
+        public IEnumerable<RegEntity> Get(string train, int take, int skip)
+        {
+            var total = model.Registrations.Where(r => r.TrainCategory == train).LongCount();
+            var pages = Math.Ceiling((Convert.ToDouble(total) / Convert.ToDouble(take)));
+            HttpContext.Current.Response.AddHeader("X-HeyHey-Total", total.ToString());
+            HttpContext.Current.Response.AddHeader("X-HeyHey-Pages", pages.ToString());
+
+            var query = (from reg in model.Registrations
+                         join user in model.RegUsers.DefaultIfEmpty() on reg.RegUserId equals user.Gid into ru
+                         join edu in model.EduTrains.DefaultIfEmpty() on reg.TrainId equals edu.Gid into et
+                         join cert in model.CertificationTrains.DefaultIfEmpty() on reg.TrainId equals cert.Gid into ct
+                         join school in model.SchoolTrains.DefaultIfEmpty() on reg.TrainId equals school.Gid into st
+                         where reg.TrainCategory == train
+                         orderby reg.Id descending
+                         select new
+                         {
+                             reg,
+                             ru,
+                             et,
+                             ct,
+                             st
+                         })
+                         .Skip(skip)
+                         .Take(take)
+                         .ToList()
+                         .Select(obj => new RegEntity()
+                         {
+                             Reg = obj.reg,
+                             User = obj.ru.FirstOrDefault(),
+                             Edu = obj.et.FirstOrDefault(),
+                             Cert = obj.ct.FirstOrDefault(),
+                             School = obj.st.FirstOrDefault()
+                         });
+
+
+            return query;
+        }
 
         public bool Put(RegEntity entity)
         {

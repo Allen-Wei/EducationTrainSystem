@@ -61,16 +61,24 @@ app.controller('BodyCtrl', function ($scope, AppConstant, $location) {
 app.controller('ListCtrl', function ($scope, RegEntitySvc, RegSvc, TrainSvc, CourseSvc) {
 
     $scope.main = {
+        trains: [{Category:'', Description:'课程分类'}],
+        train: {},
         regs: [],
         page: 1,
         pages: 1,
         total: 1,
         load: function (p) {
-            RegEntitySvc.getList(p).then(function (rep) {
-                $scope.main.regs = rep.data;
-                $scope.main.pages = parseInt(rep.headers('X-HeyHey-Pages'));
-                $scope.main.total = parseInt(rep.headers('X-HeyHey-Total'));
-            });
+            var promise = undefined;
+            if (this.train.Category) {
+                promise = RegEntitySvc.getListByTrain(this.train.Category, p);
+            } else {
+                promise = RegEntitySvc.getList(p);
+            }
+            promise.then(function (rep) {
+                    $scope.main.regs = rep.data;
+                    $scope.main.pages = parseInt(rep.headers('X-HeyHey-Pages'));
+                    $scope.main.total = parseInt(rep.headers('X-HeyHey-Total'));
+                });
         },
         refresh: function () {
             this.load(this.page);
@@ -100,6 +108,14 @@ app.controller('ListCtrl', function ($scope, RegEntitySvc, RegSvc, TrainSvc, Cou
         }
         $scope.main.load(newVal);
     });
+
+    //load trains
+    TrainSvc.getAll().then(function (rep) {
+        $scope.main.trains = $scope.main.trains.concat(rep.data);
+        console.log($scope.main.trains);
+        $scope.main.train = $scope.main.trains[0];
+    });
+
 });
 
 app.controller('DetailCtrl', function ($scope, $routeParams, RegEntitySvc, SchoolSubjectSvc) {
