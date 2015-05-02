@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<EducationTrainSystem.Models.Registration>
+
+<table>
+    <thead></thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(i => item.Id)</td>
+                <td>@Html.DisplayFor(i => item.Note)</td>
+                <td>@Html.DisplayFor(i => item.Price)</td>
+                <td>@Html.DisplayFor(i => item.ReceiptNumber)</td>
+                <td>@Html.DisplayFor(i => item.Address)</td>
+                <td>@Html.ActionLink("Edit", "Reg", new { Id = item.Id }, new { @class = "btn btn-default" })</td>
+            </tr>
+        }
+    </tbody>
+</table>

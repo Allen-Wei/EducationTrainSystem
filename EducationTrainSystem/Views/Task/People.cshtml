@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "People";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model EducationTrainSystem.Controllers.Person
+
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel()
+
+    <input type="submit" value="Submit" />
+}

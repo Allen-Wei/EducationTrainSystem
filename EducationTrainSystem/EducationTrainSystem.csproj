@@ -227,6 +227,9 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Task\Index.cshtml" />
+    <Content Include="Views\Task\Reg.cshtml" />
+    <Content Include="Views\Task\List.cshtml" />
+    <Content Include="Views\Task\People.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

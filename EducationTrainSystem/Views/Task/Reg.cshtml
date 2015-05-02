@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model EducationTrainSystem.Models.Registration
+
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-sm-12">
+            @Html.DropDownList("Train", ViewBag.Trains as IEnumerable<SelectListItem>, new { id = "reg_train" })
+        </div>
+
+        <div class="col-sm-12">
+            Receipt Number:  @Html.EditorFor(item => item.ReceiptNumber)
+        </div>
+
+        <div class="col-sm-12">
+            Price:  @Html.EditorFor(item => item.Price)
+        </div>
+        <div class="col-sm-12">
+            Note: @Html.TextAreaFor(item => item.Note, new { name = "reg_note", id = "reg_id" })
+            @Html.TextArea("mynote", Model.Note, new { id = "note_1" })
+        </div>
+        <div class="col-sm-12">
+            @Html.DropDownList("Address", ViewBag.Addresses as SelectList, new { id = "reg_address" })
+        </div>
+        <div class="col-sm-12">
+            <input type="submit" value="Submit" />
+        </div>
+    }
+</div>
