@@ -177,6 +177,11 @@ namespace EducationTrainSystem.APIv1
             return regEntity.Delete(id); 
         }
 
-    
+
+        [Route("apiv1/RegEntity/Apply")]
+        [HttpPost]
+        public bool Apply() {
+            return true;
+        }
     }
 }

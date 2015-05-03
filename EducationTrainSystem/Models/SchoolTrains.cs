@@ -9,9 +9,6 @@ namespace EducationTrainSystem.Models
     public partial class SchoolTrain
     {
         public List<SchoolSubject> SchoolSubjects { get; set; }
-        partial void OnCreated()
-        {
-            throw new NotImplementedException();
-        }
+  
     }
 }
