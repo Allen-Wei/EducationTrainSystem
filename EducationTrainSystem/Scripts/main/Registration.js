@@ -14,7 +14,8 @@ var app = angular.module('Registration', [
     'edu.services.keyvaluegroup',
     'edu.services.keyvaluematch',
     'edu.services.edutrain',
-    'edu.services.schoolsubject'
+    'edu.services.schoolsubject',
+    'edu.services.user'
 ]);
 app.config(function ($routeProvider) {
     $routeProvider.when('/', {
@@ -38,7 +39,7 @@ app.config(function ($routeProvider) {
 app.controller('BodyCtrl', function ($scope, AppConstant, $location) {
     $scope.constant = AppConstant;
     $scope.$on('$routeChangeStart', function (next, current) {
-        var paths = [{ href: '/', text: '网站' }, {href:'/Education/Manage', text:'管理'}, { href: '#/', text: '主页' }];
+        var paths = [{ href: '/', text: '网站' }, { href: '/Education/Manage', text: '管理' }, { href: '#/', text: '主页' }];
         var path = $location.path();
         switch (path) {
             case '/': paths[paths.length - 1].href = undefined; break;
@@ -60,35 +61,52 @@ app.controller('BodyCtrl', function ($scope, AppConstant, $location) {
 
 app.controller('ListCtrl', function ($scope, RegEntitySvc, RegSvc, TrainSvc, CourseSvc) {
 
-    $scope.main = {
-        trains: [{Category:'', Description:'课程分类'}],
-        train: {},
+    var main = $scope.main = {
+        condition: {
+            train: { list: [{ Category: '', Description: '课程分类' }], selected: {} },
+        },
         regs: [],
         page: 1,
         pages: 1,
         total: 1,
         load: function (p) {
-            var promise = undefined;
+
+            var where = ['1=1'];
+            var parameters = [];
+            if (this.condition.train.selected.Category) {
+                where.push('TrainCategory = @' + parameters.length);
+                parameters.push(this.condition.train.selected.Category);
+            }
+            var order = 'Id desc'
+
+            var promise = RegSvc.query(where.join(' and '), parameters, order, p).then(function (rep) {
+                $scope.main.regs = rep.data;
+                $scope.main.pages = parseInt(rep.headers('X-HeyHey-Pages'));
+                $scope.main.total = parseInt(rep.headers('X-HeyHey-Total'));
+                main.page = p;
+            });
+            return;
+
             if (this.train.Category) {
                 promise = RegEntitySvc.getListByTrain(this.train.Category, p);
             } else {
                 promise = RegEntitySvc.getList(p);
             }
             promise.then(function (rep) {
-                    $scope.main.regs = rep.data;
-                    $scope.main.pages = parseInt(rep.headers('X-HeyHey-Pages'));
-                    $scope.main.total = parseInt(rep.headers('X-HeyHey-Total'));
-                });
+                $scope.main.regs = rep.data;
+                $scope.main.pages = parseInt(rep.headers('X-HeyHey-Pages'));
+                $scope.main.total = parseInt(rep.headers('X-HeyHey-Total'));
+            });
         },
         refresh: function () {
-            this.load(this.page);
+            this.load(1);
         },
         remove: function (index) {
             var reg = this.regs[index];
             if (!reg) {
                 throw 'Cannot find ' + index;
             }
-            console.log(reg);
+
             RegEntitySvc.remove(reg.Reg.Id).then(function (rep) {
                 if (rep.data) {
                     $scope.main.regs.splice(index, 1);
@@ -111,8 +129,8 @@ app.controller('ListCtrl', function ($scope, RegEntitySvc, RegSvc, TrainSvc, Cou
 
     //load trains
     TrainSvc.getAll().then(function (rep) {
-        $scope.main.trains = $scope.main.trains.concat(rep.data);
-        $scope.main.train = $scope.main.trains[0];
+        main.condition.train.list = main.condition.train.list.concat(rep.data);
+        main.condition.train.selected = main.condition.train.list[0];
     });
 
 });

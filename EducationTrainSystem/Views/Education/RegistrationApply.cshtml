@@ -1,11 +1,13 @@
-﻿@{
-    ViewBag.Title = "报名管理";
+﻿
+@{
+    ViewBag.Title = "报名申请";
     Layout = "~/Views/Shared/_Education.cshtml";
 }
 
+
 @section header{
     <script src="~/Scripts/EduUtils.js"></script>
-    <script src="~/Scripts/main/Registration.js"></script>
+    <script src="~/Scripts/main/Apply.js"></script>
 
     <style type="text/css">
         input[type=radio] { -webkit-appearance: radio; }
@@ -33,10 +35,12 @@
         .new-form .col-xs-12 { margin-top: 10px; vertical-align: middle; }
         /*for form.html, detai.html*/
         .header-sub { color: #111; }
+
+          input.ng-dirty.ng-invalid { border: 1px solid red; }
     </style>
 }
 
-<div ng-app="Registration">
+<div ng-app="ApplyApp">
     <div ng-controller="BodyCtrl">
         <div class="container-fluid" ng-view></div>
     </div>

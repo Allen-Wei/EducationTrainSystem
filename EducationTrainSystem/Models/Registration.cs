@@ -19,5 +19,10 @@ namespace EducationTrainSystem.Models
             this.Gid = Guid.NewGuid();
             this.GenerateDate = DateTime.Now;
         }
+
+
+        public Models.RegUser User { get; set; }
+
+        public object Train { get; set; }
     }
 }

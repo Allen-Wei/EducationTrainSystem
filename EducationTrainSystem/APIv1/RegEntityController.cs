@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Web.Security;
 using System.Collections.Generic;
-using System.Data.Linq;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Http;
-using System.Web.UI;
+using System.Linq.Dynamic;
 using EducationTrainSystem.Models;
-using EducationTrainSystem.Library;
+using EducationTrainSystem.ViewModels;
 
 namespace EducationTrainSystem.APIv1
 {
-    [Authorize(Roles="sales")]
+    [Authorize(Roles = "sales")]
     public class RegEntityController : ApiController
     {
-       
+
         private EducationTrain model = new EducationTrain();
 
         private RegEntityController()
@@ -50,7 +45,7 @@ namespace EducationTrainSystem.APIv1
                          })
                          .FirstOrDefault();
 
-          
+
             return query;
         }
 
@@ -122,6 +117,8 @@ namespace EducationTrainSystem.APIv1
 
         public IEnumerable<RegEntity> Get(string train, int take, int skip)
         {
+
+
             var total = model.Registrations.Where(r => r.TrainCategory == train).LongCount();
             var pages = Math.Ceiling((Convert.ToDouble(total) / Convert.ToDouble(take)));
             HttpContext.Current.Response.AddHeader("X-HeyHey-Total", total.ToString());
@@ -168,20 +165,15 @@ namespace EducationTrainSystem.APIv1
         {
 
             var regEntity = new RegEntity();
-            return regEntity.Update(entity); 
+            return regEntity.Update(entity);
         }
 
         public bool Delete(int id)
         {
             var regEntity = new RegEntity();
-            return regEntity.Delete(id); 
+            return regEntity.Delete(id);
         }
 
 
-        [Route("apiv1/RegEntity/Apply")]
-        [HttpPost]
-        public bool Apply() {
-            return true;
-        }
     }
 }

@@ -13,11 +13,13 @@ namespace EducationTrainSystem.Controllers
     {
         private EducationTrain model = new EducationTrain();
 
-        //[Authorize(Roles = "sales")]
+        [Authorize]
         public ActionResult Registration()
         {
             return View();
         }
+
+        [Authorize]
         public ActionResult Manage()
         {
             return View();
@@ -31,7 +33,13 @@ namespace EducationTrainSystem.Controllers
             return View(reg);
         }
 
+        [AllowAnonymous]
         public ActionResult Apply()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        public ActionResult RegistrationApply()
         {
             return View();
         }

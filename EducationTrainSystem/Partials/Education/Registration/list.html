@@ -1,13 +1,13 @@
 ﻿
 <div class="row">
     <div class="col-sm-12 top10 bottom10">
+        <a href="/APIv1/Registration/Export" class="btn btn-default">导出全部记录</a>
         <a href="#/add" class="btn btn-default" title="新建报名记录">添加</a>
         <select class="form-control"
                 style="display: inline; width: auto;"
-                ng-model="main.train"
-                ng-options="t.Description for t in main.trains"
-                ng-change="main.refresh()">
-        </select>
+                ng-model="main.condition.train.selected"
+                ng-options="t.Description for t in main.condition.train.list"
+                ng-change="main.refresh()"></select>
     </div>
 </div>
 <div class="row">
@@ -29,16 +29,16 @@
                 <tbody>
                     <tr ng-repeat="reg in main.regs">
                         <td>
-                            <a href="#/detail/{{reg.Reg.Gid}}">{{reg.Reg.Id}}</a>
+                            <a href="#/detail/{{reg.Gid}}">{{reg.Id}}</a>
                         </td>
                         <td>{{reg.User.RegDate | date:constant.ngDateFormat}}</td>
                         <td>{{reg.User.Name}}</td>
                         <td class="hidden-xs hidden-sm">{{reg.User.Gender ? '男' : '女'}}</td>
-                        <td>{{reg.Reg.Price | currency:'￥'}}</td>
-                        <td class="hidden-xs hidden-sm">{{reg.Reg.Payee}}</td>
+                        <td>{{reg.Price | currency:'￥'}}</td>
+                        <td class="hidden-xs hidden-sm">{{reg.Payee}}</td>
                         <td>
-                            <a href="#/edit/{{reg.Reg.Gid}}" class="btn btn-xs btn-default glyphicon glyphicon-pencil"></a>
-                            <a href="/Education/Receipt/{{reg.Reg.Gid}}" target="_blank" class="btn btn-xs btn-default glyphicon glyphicon-print hidden-sm hidden-xs"></a>
+                            <a href="#/edit/{{reg.Gid}}" class="btn btn-xs btn-default glyphicon glyphicon-pencil"></a>
+                            <a href="/Education/Receipt/{{reg.Gid}}" target="_blank" class="btn btn-xs btn-default glyphicon glyphicon-print hidden-sm hidden-xs"></a>
                             <button class="btn btn-xs btn-danger glyphicon glyphicon-remove" ng-click="main.remove($index)"></button>
                         </td>
                     </tr>

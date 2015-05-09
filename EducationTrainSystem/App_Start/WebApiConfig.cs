@@ -6,6 +6,7 @@ namespace EducationTrainSystem
     {
         public static void Register(HttpConfiguration config)
         {
+            config.MapHttpAttributeRoutes();
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "apiv1/{controller}/{id}",

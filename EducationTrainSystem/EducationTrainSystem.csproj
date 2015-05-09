@@ -42,6 +42,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.4.0.4\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -49,13 +52,16 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Linq.Dynamic">
+      <HintPath>..\packages\AlanWay.System.Linq.Dynamic.0.0.1\lib\System.Linq.Dynamic.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -122,7 +128,6 @@
     <Compile Include="APIv1\UserController.cs" />
     <Compile Include="Areas\APIv2\APIv2AreaRegistration.cs" />
     <Compile Include="Areas\APIv2\Controllers\RegController.cs" />
-    <Compile Include="Areas\APIv2\Controllers\UserController.cs" />
     <Compile Include="Controllers\EducationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
@@ -136,6 +141,7 @@
     <Compile Include="Models\Registration.cs" />
     <Compile Include="Models\SchoolTrains.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\QueryParams.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -148,6 +154,7 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Partials\Education\Apply\add.html" />
     <Content Include="Partials\Education\Manage\keyvalue.html" />
     <Content Include="Partials\Education\Manage\keyvaluegroup.html" />
     <Content Include="Partials\Education\Manage\keyvaluematch.html" />
@@ -168,9 +175,11 @@
     <Content Include="Scripts\angular\services.registration.js" />
     <Content Include="Scripts\angular\services.schoolsubject.js" />
     <Content Include="Scripts\angular\services.schooltrain.js" />
+    <Content Include="Scripts\angular\services.user.js" />
     <Content Include="Scripts\angular\services.train.js" />
     <Content Include="Scripts\EduUtils.js" />
     <Content Include="Scripts\main\Manage.js" />
+    <Content Include="Scripts\main\Apply.js" />
     <Content Include="Scripts\main\Registration.js" />
     <Content Include="Styles\animate.css" />
     <Content Include="Styles\bootstrap-theme.min.css" />
@@ -226,6 +235,8 @@
     <Content Include="Views\Task\Reg.cshtml" />
     <Content Include="Views\Task\List.cshtml" />
     <Content Include="Views\Task\People.cshtml" />
+    <Content Include="Views\Shared\_Education.cshtml" />
+    <Content Include="Views\Education\RegistrationApply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

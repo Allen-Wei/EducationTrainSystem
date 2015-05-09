@@ -37,6 +37,18 @@ angular.module('edu.services.reg', []).factory('RegSvc', function ($http, AppCon
             });
             return promise;
         },
+        query: function (condition, parameters, order, page) {
+            if (!condition || !order || !parameters || !page) { throw 'error parameter(s) at edu.services.reg -> query'; }
+
+            var take = AppConstant.perPage;
+            var skip = (page - 1) * take;
+            var promise = $http({
+                method: 'post',
+                url: '/Apiv1/Registration/Query',
+                data: { Condition: condition, Parameters: parameters, Order: order, Skip: skip, Take: take }
+            });
+            return promise;
+        },
 
         add: function (entity) {
             var promise = $http({

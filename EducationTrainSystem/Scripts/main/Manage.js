@@ -2,7 +2,7 @@
 
 
 
-var app = angular.module('Manage', [
+var app = angular.module('ManageApp', [
     'ngRoute',
     'edu.services.global',
     'edu.services.reg',

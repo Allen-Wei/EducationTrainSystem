@@ -30,5 +30,12 @@ namespace EducationTrainSystem.APIv1
             message.success = true;
             return message;
         }
+
+        [HttpGet]
+        [Route("Apiv1/User/SignOut")]
+        public bool SignOut() {
+            FormsAuthentication.SignOut();
+            return true;
+        }
     }
 }

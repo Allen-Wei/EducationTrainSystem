@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section header{
+    @Html.Partial("~/Views/Partials/angular.cshtml")
+    @Html.Partial("~/Views/Partials/jqueryui.cshtml")
+    @Html.Partial("~/Views/Partials/angular.service.cshtml")
+
+    @RenderSection("header", false)
+}
+<div class="head-breadcrumb">
+    @Html.Partial("~/Views/Partials/breadcrumb.cshtml")
+</div>
+
+@RenderBody()
+
+@section scripts{
+    <script>
+
+        amplify.subscribe('path.finish', function () {
+            var $logOut = $('<a class="pull-right user-signout" href="javascript:void(0）">退出</a>');
+            $('.head-breadcrumb .breadcrumb').append($logOut);
+        });
+        $('body').on('click', 'a.user-signout', function () {
+            $.ajax({
+                method: 'get',
+                url:'/APIv1/User/SignOut'
+            }).then(function () {
+                location.href = '/';
+            });
+        });
+    </script>
+
+    @RenderSection("scripts", false)
+}

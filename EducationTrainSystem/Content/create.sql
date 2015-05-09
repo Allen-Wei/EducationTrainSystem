@@ -143,7 +143,6 @@ create table SchoolSubjects(
 	Name varchar(500) not null,
 	Hours int null,
 	PricePerHours money null
-	--, constraint FK_SS_ST_TrainId foreign key (TrainId) references SchoolTrains(Gid) on update cascade on delete cascade
 )
 
 if exists (select * from sys.tables where name = 'Roles') drop table Roles

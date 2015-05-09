@@ -1,0 +1,287 @@
+﻿
+<form class="new-form" role="form" name="NewForm" novalidate>
+    <div class="row">
+        <div class="col-sm-6 col-xs-12">
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    基本信息
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <!-- Registrater Information -->
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            报名日期
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text"
+                                   class="form-control"
+                                   select-date
+                                   date-format="{{constant.uiDateFormat}}"
+                                   ng-model="main.user.RegDate"
+                                   required />
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            姓名
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" value="" class="form-control" ng-model="main.user.Name" placeholder="学员姓名" required />
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            性别
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <label>
+                                <input type="radio" ng-checked="main.user.Gender" ng-click="main.user.Gender = true" /> 男
+                            </label>
+                            <label>
+                                <input type="radio" ng-checked="!main.user.Gender" ng-click="main.user.Gender = false" /> 女
+                            </label>
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            身份证号
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" value="" class="form-control" ng-model="main.user.CardId" placeholder="学员身份证号码" required />
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            民族
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" value="" class="form-control" ng-model="main.user.Nation" placeholder="学员所属民族" required />
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            电话
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" value="" class="form-control" ng-model="main.user.Phone" placeholder="学员联系电话" required />
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            备用电话
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" value="" class="form-control" placeholder="学员备用电话" ng-model="main.user.Phone2" />
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            户籍
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" value="" class="form-control" placeholder="学员户籍地址" ng-model="main.user.HomeAddress" required />
+                        </div>
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            住址
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" value="" class="form-control" placeholder="学员住址" ng-model="main.user.LiveAddress" required />
+                        </div>
+
+
+
+                        <!-- Registration Information-->
+                        <!--<div class="col-sm-3 col-xs-12 header-sub">
+                            生效
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="checkbox" ng-model="main.reg.Confirmed" />
+                        </div>
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            票据编号
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" value="" class="form-control" ng-model="main.reg.ReceiptNumber" placeholder="此票据编号" required />
+                        </div>
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            费用
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="number" value="" class="form-control" ng-model="main.reg.Price" required />
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            代理人
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" value="" class="form-control" ng-model="main.reg.Agent" placeholder="报名登记代理人" required />
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            收款人
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" value="" class="form-control" ng-model="main.reg.Payee" required placeholder="收款人" />
+                        </div>-->
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            地址
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control" ng-model="main.assist.regAddress" ng-options="ra.Name for ra in main.assist.regAddresses"></select>
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            备注
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" value="" class="form-control" ng-model="main.reg.Note" placeholder="报名备注" />
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            课程类别
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control"
+                                    ng-model="main.assist.train"
+                                    ng-options="cc.Description for cc in main.assist.trains"></select>
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            所报课程
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control"
+                                    ng-options="c.Description for c in main.assist.courses"
+                                    ng-model="main.assist.course"></select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-6 col-xs-12">
+
+            <div class="panel panel-info" ng-show="main.assist.train.Category == 'EduTrains'">
+                <div class="panel-heading">学历教育培训</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            所报院校
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control" ng-model="main.assist.regCollege" ng-options="college.Name for college in main.assist.regColleges"></select>
+                        </div>
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            所报专业
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" value="" class="form-control" placeholder="学员所报专业" ng-model="main.eduTrain.RegMajor" />
+                        </div>
+
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            学历类别
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control" ng-model="main.eduTrain.EduType">
+                                <option value="专科">专科</option>
+                                <option value="本科">本科</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            所在学校
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control" ng-options="college.Name for college in main.assist.currentColleges" ng-model="main.assist.currentCollege"></select>
+                        </div>
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            所在年级
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" ng-model="main.eduTrain.CurrentGrade" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-info" ng-show="main.assist.train.Category == 'CertificationTrains'">
+                <div class="panel-heading">资格证培训</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            所在院校
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control" ng-options="college.Name for college in main.assist.currentColleges" ng-model="main.assist.currentCollege"></select>
+                        </div>
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            所在年级
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control" ng-model="main.certTrain.CurrentGrade">
+                                <option value="大一">大一</option>
+                                <option value="大二">大二</option>
+                                <option value="大三">大三</option>
+                                <option value="大四">大四</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            学历类别
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control" ng-model="main.certTrain.EduType">
+                                <option value="专科">专科</option>
+                                <option value="本科">本科</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-info" ng-show="main.assist.train.Category == 'SchoolTrains'">
+                <div class="panel-heading">中小学辅导</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            所在阶段
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control" ng-model="main.schoolTrain.RegStage">
+                                <option value="小学">小学</option>
+                                <option value="初中">初中</option>
+                                <option value="高中">高中</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            科目
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control edu-inline edu-tooltip" ng-options="ss.Name for ss in main.assist.subjects" ng-model="main.schoolTrain.tempSubject.subject" title="培训科目"></select>
+                            <input class="form-control edu-inline text-center edu-tooltip" type="number" ng-model="main.schoolTrain.tempSubject.Hours" style="width: 60px" title="培训时间，单位小时" />
+                            <input class="form-control edu-inline text-center edu-tooltip" type="number" ng-model="main.schoolTrain.tempSubject.PricePerHours" style="width: 80px" title="每小时价格" />
+                            <button class="btn btn-default" ng-click="main.schoolTrain.addSubject()">添加科目</button>
+                        </div>
+                        <div class="col-sm-3 col-xs-12 header-sub">
+                            已添加科目
+                        </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="sub in main.schoolTrain.SchoolSubjects">
+                                    <span class="fa fa-remove edu-tooltip text-danger" title="删除科目 {{sub.Name}}" ng-click="main.schoolTrain.removeSubject($index)"></span>
+                                    {{sub.Name}} / {{sub.Hours}}H / {{sub.PricePerHours | currency: '￥'}}
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button ng-click="main.submit()" class="btn btn-default" ng-disabled="NewForm.$invalid">Submit</button>
+        </div>
+    </div>
+
+</form>

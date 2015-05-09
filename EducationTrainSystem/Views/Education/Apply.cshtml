@@ -1,13 +1,9 @@
 ﻿@{
     ViewBag.Title = "申请";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Education.cshtml";
 }
 
 @section header{
-    @Html.Partial("~/Views/Partials/jqueryui.cshtml")
-    @Html.Partial("~/Views/Partials/angular.cshtml")
-    @Html.Partial("~/Views/Partials/angular.service.cshtml")
-
 
     <style type="text/css">
         input[type=radio] { -webkit-appearance: radio; }
@@ -31,7 +27,6 @@
     </style>
 }
 
-@Html.Partial("~/Views/Partials/breadcrumb.cshtml")
 
 <div class="container-fluid" ng-app="Registration">
     <div ng-controller="BodyCtrl">

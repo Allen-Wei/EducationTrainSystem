@@ -33,7 +33,7 @@
             </div>
             <div class="form-group">
                 <span id="main-login-cancel" class="btn btn-default">返回</span>
-                <span id="main-login-submit" class="btn btn-info">登录</span>
+                <button id="main-login-submit" class="btn btn-info">登录</button>
             </div>
         </form>
     </div>
@@ -82,6 +82,7 @@
                     alert(rep.message);
                 }
             });
+            return false;
         });
     });
 
